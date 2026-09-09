@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Julia Matilde Borges — Portfólio</title>
+<style>
+/* =========================================================
+   JULIA MATILDE BORGES — PORTFÓLIO "WINDOWS 7"
+   Um único arquivo. Procure "EDITAR AQUI" pra trocar fotos/projetos.
+   ========================================================= */
+:root{
+  --aero-blue-dark:#0b2e52;
+  --aero-blue:#1c5aa0;
+  --aero-blue-light:#5fa8e0;
+  --aero-glass: rgba(255,255,255,0.14);
+  --aero-glass-strong: rgba(255,255,255,0.22);
+  --aero-border: rgba(255,255,255,0.55);
+  --taskbar-glass: rgba(12,34,64,0.72);
+  --orb-green:#3f9c1e;
+  --ink:#0e1116;
+  --paper:#f6f4ea;
+  --font-ui:'Segoe UI','Tahoma','Trebuchet MS',sans-serif;
+  --font-mono:'Consolas','Courier New',monospace;
+}
+*{box-sizing:border-box;}
+html,body{
+  margin:0;padding:0;width:100%;height:100%;
+  overflow:hidden;
+  font-family:var(--font-ui);
+  -webkit-user-select:none;user-select:none;
+  cursor:default;
+}
+img{-webkit-user-drag:none;user-drag:none;}
+
+/* ---------------- BOOT SCREEN ---------------- */
+#boot-screen{
+  position:fixed;inset:0;background:#000;z-index:9999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:#dfe6ef;transition:opacity .8s ease;
+}
+#boot-screen.hidden{opacity:0;pointer-events:none;}
+.boot-orb{
+  width:64px;height:64px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #8fd0ff, #1c5aa0 55%, #0b2e52 100%);
+  box-shadow:0 0 24px rgba(95,168,224,.6);
+  margin-bottom:26px;
+  animation:pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.12);}}
+.boot-title{font-size:15px;letter-spacing:2px;font-weight:300;color:#cdd8e4;}
+.boot-dots{display:flex;gap:6px;margin-top:18px;}
+.boot-dots span{width:6px;height:6px;border-radius:50%;background:#3d75ad;animation:blink 1.2s infinite;}
+.boot-dots span:nth-child(2){animation-delay:.2s;}
+.boot-dots span:nth-child(3){animation-delay:.4s;}
+.boot-dots span:nth-child(4){animation-delay:.6s;}
+@keyframes blink{0%,100%{opacity:.25;}50%{opacity:1;}}
+.boot-skip{position:absolute;bottom:22px;font-size:11px;color:#5a6c80;}
+
+/* ---------------- SHUTDOWN SCREEN ---------------- */
+#shutdown-screen{
+  position:fixed;inset:0;background:#000;z-index:9998;
+  display:none;align-items:center;justify-content:center;flex-direction:column;color:#cdd8e4;
+}
+#shutdown-screen.show{display:flex;}
+.shutdown-orb{
+  width:40px;height:40px;border-radius:50%;
+  border:3px solid rgba(255,255,255,.15);border-top-color:#5fa8e0;
+  animation:spin 1s linear infinite;margin-bottom:18px;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ---------------- DESKTOP ---------------- */
+#desktop{
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 900px 700px at 78% 88%, rgba(255,255,255,0.10), transparent 60%),
+    radial-gradient(ellipse 1200px 900px at 15% 100%, rgba(120,190,255,0.18), transparent 55%),
+    linear-gradient(160deg, #05192f 0%, #0c3564 35%, #1c5aa0 68%, #3f83c2 100%);
+  overflow:hidden;
+}
+.wallpaper-swirl{
+  position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(255,255,255,.10) 0%, transparent 35%),
+    radial-gradient(circle at 30% 70%, rgba(255,255,255,.06) 0%, transparent 40%);
+}
+
+/* Desktop icons */
+.desktop-icons{
+  position:absolute;top:16px;left:14px;
+  display:flex;flex-direction:column;gap:6px;
+  z-index:2;
+}
+.icon{
+  width:84px;padding:8px 4px;border-radius:4px;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  text-align:center;cursor:default;
+}
+.icon.selected{background:rgba(255,255,255,.18);outline:1px dashed rgba(255,255,255,.5);}
+.icon-img{
+  width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+  font-size:28px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6));
+}
+.icon span{
+  font-size:11.5px;color:#fff;line-height:1.25;
+  text-shadow:0 1px 3px rgba(0,0,0,.85);
+  word-break:break-word;
+}
+
+/* ---------------- WINDOWS (Aero glass) ---------------- */
+.window{
+  position:absolute;
+  min-width:260px;min-height:180px;
+  background:rgba(240,244,248,0.86);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-radius:8px;
+  border:1px solid var(--aero-border);
+  box-shadow:0 18px 45px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.15) inset;
+  display:none;flex-direction:column;
+  overflow:hidden;
+  resize:both;
+}
+.window.open{display:flex;}
+.window.minimized{display:none;}
+.window.maximized{
+  top:0 !important;left:0 !important;
+  width:100% !important;height:calc(100% - 46px) !important;
+  border-radius:0;resize:none;
+}
+.titlebar{
+  height:34px;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 4px 0 10px;
+  background:linear-gradient(180deg, rgba(120,178,230,.95) 0%, rgba(50,110,175,.95) 45%, rgba(30,85,150,.95) 100%);
+  border-bottom:1px solid rgba(255,255,255,.4);
+  cursor:grab;
+  position:relative;
+}
+.titlebar::before{
+  content:"";position:absolute;inset:0 0 60% 0;
+  background:linear-gradient(180deg, rgba(255,255,255,.55), transparent);
+  pointer-events:none;
+}
+.titlebar:active{cursor:grabbing;}
+.titlebar .t-left{display:flex;align-items:center;gap:8px;color:#fff;font-size:13px;text-shadow:0 1px 2px rgba(0,0,0,.5);z-index:1;}
+.titlebar .t-icon{font-size:15px;}
+.titlebar .t-btns{display:flex;gap:4px;z-index:1;}
+.tbtn{
+  width:26px;height:22px;border-radius:3px;border:1px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.14);color:#fff;font-size:12px;line-height:1;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+}
+.tbtn:hover{background:rgba(255,255,255,.32);}
+.tbtn.close:hover{background:#e0463c;border-color:#ff8f88;}
+
+.win-content{
+  flex:1 1 auto;overflow:auto;padding:0;
+  background:var(--paper);
+}
+.win-menubar{
+  font-size:11.5px;color:#333;padding:4px 10px;
+  background:#eef1f4;border-bottom:1px solid #d4d9df;
+  display:flex;gap:16px;
+}
+
+/* ---------------- NOTEPAD ---------------- */
+.notepad-area{
+  font-family:var(--font-mono);font-size:13.5px;line-height:1.7;color:#1a1a1a;
+  padding:16px 20px;white-space:pre-wrap;height:100%;
+}
+.notepad-area b{color:#0b3d6b;}
+
+/* ---------------- PROJETOS (gallery) ---------------- */
+.gallery-wrap{padding:16px;}
+.gallery-grid{
+  display:grid;grid-template-columns:repeat(auto-fill, minmax(220px,1fr));
+  gap:14px;
+}
+.project-card{
+  background:#fff;border:1px solid #d7dde3;border-radius:6px;overflow:hidden;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);display:flex;flex-direction:column;
+}
+.project-photo{
+  height:120px;display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(135deg,#eef2f6,#eef2f6 10px,#e4e9ee 10px,#e4e9ee 20px);
+  border-bottom:1px dashed #c3cbd3;color:#8894a1;font-size:11px;text-align:center;padding:8px;
+}
+.project-body{padding:10px 12px 12px;}
+.project-body h4{margin:0 0 4px;font-size:13.5px;color:#12345b;}
+.project-body p{margin:0 0 8px;font-size:11.8px;color:#3a4652;line-height:1.5;}
+.tag-row{display:flex;flex-wrap:wrap;gap:5px;}
+.tag{
+  font-size:10px;background:#e6edf5;color:#1c5aa0;border:1px solid #c8d7e8;
+  padding:2px 6px;border-radius:3px;
+}
+
+/* ---------------- LIXEIRA ---------------- */
+.empty-msg{padding:30px;text-align:center;color:#7c8794;font-size:12.5px;}
+
+/* ---------------- MINESWEEPER ---------------- */
+.ms-wrap{padding:12px;display:flex;flex-direction:column;align-items:center;background:#c6cfd8;height:100%;}
+.ms-hud{
+  width:100%;max-width:270px;display:flex;align-items:center;justify-content:space-between;
+  background:#c6cfd8;border:2px solid;
+  border-color:#7c8794 #f4f6f8 #f4f6f8 #7c8794;
+  padding:6px 8px;margin-bottom:8px;
+}
+.ms-counter{
+  font-family:var(--font-mono);background:#111;color:#e0261c;font-weight:bold;
+  font-size:18px;padding:2px 6px;border:1px solid #000;min-width:44px;text-align:center;
+  letter-spacing:1px;
+}
+.ms-face{
+  width:30px;height:30px;font-size:17px;border-radius:2px;cursor:pointer;
+  background:#c6cfd8;border:2px solid;border-color:#f4f6f8 #7c8794 #7c8794 #f4f6f8;
+  display:flex;align-items:center;justify-content:center;
+}
+.ms-face:active{border-color:#7c8794 #f4f6f8 #f4f6f8 #7c8794;}
+.ms-board{
+  display:grid;grid-template-columns:repeat(9,26px);grid-template-rows:repeat(9,26px);
+  border:3px solid;border-color:#7c8794 #f4f6f8 #f4f6f8 #7c8794;
+}
+.ms-cell{
+  width:26px;height:26px;display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:bold;font-family:var(--font-mono);
+  background:#c6cfd8;border:2px solid;border-color:#f4f6f8 #7c8794 #7c8794 #f4f6f8;cursor:pointer;
+}
+.ms-cell.revealed{
+  border:1px solid #9aa4ad;background:#d4dae0;cursor:default;
+}
+.ms-cell.mine{background:#e0463c;}
+.ms-cell[data-n="1"]{color:#1449c9;}
+.ms-cell[data-n="2"]{color:#1c7a29;}
+.ms-cell[data-n="3"]{color:#c9291c;}
+.ms-cell[data-n="4"]{color:#0b2a6b;}
+.ms-cell[data-n="5"]{color:#7a1c1c;}
+.ms-cell[data-n="6"]{color:#1c7a7a;}
+.ms-cell[data-n="7"]{color:#111;}
+.ms-cell[data-n="8"]{color:#5c6a76;}
+.ms-note{margin-top:8px;font-size:10.5px;color:#4c5761;text-align:center;}
+
+/* ---------------- PAINT ---------------- */
+.paint-wrap{display:flex;flex-direction:column;height:100%;background:#c6cfd8;}
+.paint-toolbar{
+  display:flex;align-items:center;gap:10px;padding:6px 8px;
+  background:#dfe4e9;border-bottom:2px solid;border-color:#f4f6f8 #7c8794 #7c8794 #f4f6f8;
+  flex-wrap:wrap;
+}
+.paint-swatches{display:grid;grid-template-columns:repeat(8,16px);grid-gap:3px;}
+.paint-swatch{width:16px;height:16px;border:1px solid #55606b;cursor:pointer;}
+.paint-swatch.active{outline:2px solid #1c5aa0;outline-offset:1px;}
+.paint-tool{
+  width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+  font-size:14px;background:#c6cfd8;border:2px solid;border-color:#f4f6f8 #7c8794 #7c8794 #f4f6f8;cursor:pointer;
+}
+.paint-tool.active{border-color:#7c8794 #f4f6f8 #f4f6f8 #7c8794;background:#b7c1cb;}
+.paint-toolbar label{font-size:11px;color:#333;display:flex;align-items:center;gap:4px;}
+.paint-canvas-wrap{flex:1;overflow:auto;background:#8c98a4;display:flex;align-items:flex-start;justify-content:center;padding:10px;}
+#paint-canvas{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3);touch-action:none;cursor:crosshair;}
+
+/* ---------------- LIXEIRA ITEMS ---------------- */
+.trash-list{padding:14px;display:flex;flex-direction:column;gap:8px;}
+.trash-item{
+  display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:4px;font-size:12.5px;color:#3a4652;cursor:default;
+}
+.trash-item.danger{
+  cursor:pointer;color:#b01818;font-weight:700;
+  animation:trash-blink 1s infinite;
+}
+@keyframes trash-blink{0%,100%{opacity:1;}50%{opacity:.55;}}
+
+/* ---------------- INVASION SCREEN ---------------- */
+#invasion-screen{
+  position:fixed;inset:0;background:#000;z-index:10000;display:none;
+  flex-direction:column;padding:26px;font-family:var(--font-mono);color:#3cf25a;
+  font-size:13px;line-height:1.7;overflow:hidden;
+}
+#invasion-screen.show{display:flex;}
+#invasion-screen.glitch{animation:glitchy .12s steps(2) infinite;}
+@keyframes glitchy{
+  0%{transform:translate(0,0);}
+  25%{transform:translate(-2px,1px);}
+  50%{transform:translate(2px,-1px);}
+  75%{transform:translate(-1px,-1px);}
+  100%{transform:translate(0,0);}
+}
+#invasion-screen .inv-line{white-space:pre-wrap;}
+
+/* ---------------- START MENU ---------------- */
+#start-menu{
+  position:fixed;left:6px;bottom:46px;width:380px;max-width:92vw;
+  background:rgba(238,242,246,0.94);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--aero-border);border-radius:8px 8px 4px 4px;
+  box-shadow:0 18px 40px rgba(0,0,0,.5);
+  display:none;overflow:hidden;z-index:500;
+  flex-direction:column;
+}
+#start-menu.open{display:flex;}
+.sm-header{
+  display:flex;align-items:center;gap:12px;padding:14px 16px;
+  background:linear-gradient(180deg, rgba(95,168,224,.9), rgba(28,90,160,.9));
+  color:#fff;
+}
+.sm-avatar{
+  width:46px;height:46px;border-radius:6px;flex:0 0 auto;
+  background:linear-gradient(145deg,#8fd0ff,#1c5aa0);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:17px;color:#fff;
+  border:2px solid rgba(255,255,255,.7);
+  /* EDITAR AQUI: troque por <img src="sua-foto.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:4px;"> */
+}
+.sm-header h3{margin:0;font-size:14.5px;}
+.sm-header p{margin:2px 0 0;font-size:11px;opacity:.9;}
+.sm-body{display:flex;flex:1;min-height:280px;}
+.sm-col-left{
+  flex:1.3;padding:10px 6px;border-right:1px solid #d3dae1;
+  display:flex;flex-direction:column;gap:2px;
+}
+.sm-item{
+  display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:4px;
+  font-size:12.5px;color:#1a2733;cursor:pointer;
+}
+.sm-item:hover{background:rgba(95,168,224,.35);}
+.sm-item .em{font-size:17px;width:22px;text-align:center;}
+.sm-col-right{
+  flex:1;padding:10px 8px;background:rgba(255,255,255,.35);
+  display:flex;flex-direction:column;gap:2px;
+}
+.sm-col-right h4{
+  margin:2px 6px 6px;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:#5c6b7a;
+  font-weight:600;
+}
+.sm-contact{
+  display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:4px;font-size:11.5px;color:#1a2733;
+  text-decoration:none;
+}
+.sm-contact:hover{background:rgba(95,168,224,.35);}
+.sm-search{
+  margin:8px 10px 10px;padding:6px 10px;border-radius:3px;border:1px solid #b7c2cc;
+  font-size:12px;color:#7c8794;background:#fff;
+}
+.sm-footer{
+  display:flex;justify-content:flex-end;padding:8px 10px;
+  background:rgba(220,228,235,.7);border-top:1px solid #d3dae1;
+}
+.sm-shutdown{
+  display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:4px;
+  background:linear-gradient(180deg,#e8664a,#c23a24);color:#fff;font-size:12px;cursor:pointer;
+  border:1px solid #a52c18;
+}
+.sm-shutdown:hover{filter:brightness(1.08);}
+
+/* ---------------- TASKBAR ---------------- */
+#taskbar{
+  position:fixed;left:0;right:0;bottom:0;height:44px;z-index:400;
+  background:linear-gradient(180deg, rgba(30,70,120,.55), var(--taskbar-glass) 40%);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-top:1px solid rgba(255,255,255,.35);
+  display:flex;align-items:center;padding:0 6px;gap:6px;
+}
+#start-button{
+  display:flex;align-items:center;gap:7px;height:36px;padding:0 14px 0 10px;
+  border-radius:5px;border:1px solid rgba(255,255,255,.25);
+  background:linear-gradient(180deg, #6ec93f, var(--orb-green) 60%, #2c7513);
+  box-shadow:0 0 10px rgba(80,200,50,.5), inset 0 1px 0 rgba(255,255,255,.6);
+  color:#fff;font-size:13px;font-weight:600;cursor:pointer;text-shadow:0 1px 1px rgba(0,0,0,.4);
+}
+#start-button:hover{filter:brightness(1.08);}
+.orb-dot{width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#bfe89a 60%,transparent);}
+
+#task-buttons{display:flex;gap:5px;flex:1;height:36px;align-items:center;overflow:hidden;}
+.task-btn{
+  height:32px;padding:0 12px;border-radius:4px;display:flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  color:#eef2f6;font-size:12px;cursor:pointer;max-width:170px;
+  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.task-btn.active{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.4);box-shadow:inset 0 0 8px rgba(0,0,0,.25);}
+.task-btn:hover{background:rgba(255,255,255,.2);}
+
+#system-tray{display:flex;align-items:center;gap:10px;padding:0 12px;height:36px;
+  background:rgba(255,255,255,.06);border-radius:4px;border:1px solid rgba(255,255,255,.14);color:#eaf0f6;}
+.tray-icon{font-size:14px;opacity:.9;}
+#clock{font-size:11.5px;text-align:right;line-height:1.25;}
+#clock .date{font-size:10px;opacity:.8;}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width:720px){
+  .window{width:92vw !important;height:72vh !important;left:4vw !important;top:8vh !important;}
+  #start-menu{width:94vw;left:3vw;bottom:50px;}
+  .desktop-icons{top:10px;left:8px;gap:2px;}
+  .icon{width:70px;}
+  .ms-board{grid-template-columns:repeat(9,24px);grid-template-rows:repeat(9,24px);}
+  .ms-cell{width:24px;height:24px;font-size:11px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== BOOT SCREEN ===================== -->
+<div id="boot-screen">
+  <div class="boot-orb"></div>
+  <div class="boot-title">Iniciando o Windows</div>
+  <div class="boot-dots"><span></span><span></span><span></span><span></span></div>
+  <div class="boot-skip">clique para entrar</div>
+</div>
+
+<!-- ===================== SHUTDOWN SCREEN ===================== -->
+<div id="shutdown-screen">
+  <div class="shutdown-orb"></div>
+  <div>Encerrando sessão...</div>
+</div>
+
+<!-- ===================== DESKTOP ===================== -->
+<div id="desktop">
+  <div class="wallpaper-swirl"></div>
+
+  <div class="desktop-icons">
+    <div class="icon" data-win="sobre">
+      <div class="icon-img">📝</div><span>Sobre_mim.txt</span>
+    </div>
+    <div class="icon" data-win="projetos">
+      <div class="icon-img">🗂️</div><span>Projetos</span>
+    </div>
+    <div class="icon" data-win="minesweeper">
+      <div class="icon-img">💣</div><span>Campo Minado.exe</span>
+    </div>
+    <div class="icon" data-win="paint">
+      <div class="icon-img">🎨</div><span>Paint.exe</span>
+    </div>
+    <div class="icon" data-win="lixeira">
+      <div class="icon-img">🗑️</div><span>Lixeira</span>
+    </div>
+  </div>
+
+  <!-- ---- Janela: Sobre mim (bloco de notas) ---- -->
+  <div class="window" id="win-sobre" style="width:460px;height:320px;top:60px;left:120px;">
+    <div class="titlebar" data-drag="win-sobre">
+      <div class="t-left"><span class="t-icon">📝</span>Sobre_mim.txt - Bloco de Notas</div>
+      <div class="t-btns">
+        <div class="tbtn" data-action="min" data-win="win-sobre">_</div>
+        <div class="tbtn" data-action="max" data-win="win-sobre">□</div>
+        <div class="tbtn close" data-action="close" data-win="win-sobre">✕</div>
+      </div>
+    </div>
+    <div class="win-menubar"><span>Arquivo</span><span>Editar</span><span>Formatar</span><span>Exibir</span></div>
+    <div class="win-content">
+      <div class="notepad-area">Sou estudante de Desenvolvimento de Sistemas, apaixonada por
+tecnologia e pelo processo de transformar ideias e problemas
+reais em soluções através da programação.
+
+<b>&gt; Tecnologias que utilizo:</b>
+   Java · Spring · MySQL · CSS · JavaScript · React
+
+<b>&gt; Objetivo:</b>
+   Atuar como Desenvolvedora de Sistemas / Full Stack,
+   construindo soluções sólidas do banco de dados à interface.
+
+--
+Julia Matilde Borges</div>
+    </div>
+  </div>
+
+  <!-- ---- Janela: Projetos (galeria) ---- -->
+  <div class="window" id="win-projetos" style="width:560px;height:400px;top:50px;left:220px;">
+    <div class="titlebar" data-drag="win-projetos">
+      <div class="t-left"><span class="t-icon">🗂️</span>Projetos</div>
+      <div class="t-btns">
+        <div class="tbtn" data-action="min" data-win="win-projetos">_</div>
+        <div class="tbtn" data-action="max" data-win="win-projetos">□</div>
+        <div class="tbtn close" data-action="close" data-win="win-projetos">✕</div>
+      </div>
+    </div>
+    <div class="win-content">
+      <div class="gallery-wrap">
+        <div class="gallery-grid">
+          <!-- EDITAR AQUI: troque cada .project-photo por <img src="projeto1.png" style="width:100%;height:100%;object-fit:cover;"> -->
+          <div class="project-card">
+            <div class="project-photo">📷 espaço para print<br>do projeto 1</div>
+            <div class="project-body">
+              <h4>Nome do Projeto 1</h4>
+              <p>Breve descrição do que o projeto faz e qual problema resolve.</p>
+              <div class="tag-row"><span class="tag">Java</span><span class="tag">Spring</span><span class="tag">MySQL</span></div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-photo">📷 espaço para print<br>do projeto 2</div>
+            <div class="project-body">
+              <h4>Nome do Projeto 2</h4>
+              <p>Breve descrição do que o projeto faz e qual problema resolve.</p>
+              <div class="tag-row"><span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">CSS</span></div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-photo">📷 espaço para print<br>do projeto 3</div>
+            <div class="project-body">
+              <h4>Nome do Projeto 3</h4>
+              <p>Breve descrição do que o projeto faz e qual problema resolve.</p>
+              <div class="tag-row"><span class="tag">Java</span><span class="tag">MySQL</span></div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-photo">📷 espaço para print<br>do projeto 4</div>
+            <div class="project-body">
+              <h4>Nome do Projeto 4</h4>
+              <p>Breve descrição do que o projeto faz e qual problema resolve.</p>
+              <div class="tag-row"><span class="tag">React</span><span class="tag">Spring</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---- Janela: Campo Minado ---- -->
+  <div class="window" id="win-minesweeper" style="width:310px;height:400px;top:70px;left:340px;">
+    <div class="titlebar" data-drag="win-minesweeper">
+      <div class="t-left"><span class="t-icon">💣</span>Campo Minado</div>
+      <div class="t-btns">
+        <div class="tbtn" data-action="min" data-win="win-minesweeper">_</div>
+        <div class="tbtn close" data-action="close" data-win="win-minesweeper">✕</div>
+      </div>
+    </div>
+    <div class="win-content">
+      <div class="ms-wrap">
+        <div class="ms-hud">
+          <div class="ms-counter" id="ms-mine-count">010</div>
+          <div class="ms-face" id="ms-face">🙂</div>
+          <div class="ms-counter" id="ms-timer">000</div>
+        </div>
+        <div class="ms-board" id="ms-board"></div>
+        <div class="ms-note">clique: abrir · clique direito: bandeira</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---- Janela: Paint ---- -->
+  <div class="window" id="win-paint" style="width:460px;height:380px;top:60px;left:260px;">
+    <div class="titlebar" data-drag="win-paint">
+      <div class="t-left"><span class="t-icon">🎨</span>Paint</div>
+      <div class="t-btns">
+        <div class="tbtn" data-action="min" data-win="win-paint">_</div>
+        <div class="tbtn" data-action="max" data-win="win-paint">□</div>
+        <div class="tbtn close" data-action="close" data-win="win-paint">✕</div>
+      </div>
+    </div>
+    <div class="win-content">
+      <div class="paint-wrap">
+        <div class="paint-toolbar">
+          <div class="paint-tool active" id="paint-tool-pencil" title="Lápis">✏️</div>
+          <div class="paint-tool" id="paint-tool-eraser" title="Borracha">🧽</div>
+          <div class="paint-swatches" id="paint-swatches"></div>
+          <label>Espessura <input type="range" id="paint-size" min="1" max="20" value="3"></label>
+          <div class="paint-tool" id="paint-clear" title="Limpar tudo">🗑️</div>
+          <div class="paint-tool" id="paint-save" title="Salvar como PNG">💾</div>
+        </div>
+        <div class="paint-canvas-wrap">
+          <canvas id="paint-canvas" width="600" height="380"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---- Janela: Lixeira ---- -->
+  <div class="window" id="win-lixeira" style="width:300px;height:220px;top:120px;left:420px;">
+    <div class="titlebar" data-drag="win-lixeira">
+      <div class="t-left"><span class="t-icon">🗑️</span>Lixeira</div>
+      <div class="t-btns">
+        <div class="tbtn" data-action="close" data-win="win-lixeira">✕</div>
+      </div>
+    </div>
+    <div class="win-content">
+      <div class="trash-list">
+        <div class="trash-item"><span>📄</span>rascunho_antigo.txt</div>
+        <div class="trash-item"><span>📄</span>ideias_descartadas.txt</div>
+        <div class="trash-item danger" id="trash-danger-file"><span>⚠️</span>NAO CLICAR!!!!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== START MENU ===================== -->
+<div id="start-menu">
+  <div class="sm-header">
+    <div class="sm-avatar">JB</div>
+    <div>
+      <h3>Julia Matilde Borges</h3>
+      <p>Desenvolvedora de Sistemas / Full Stack</p>
+    </div>
+  </div>
+  <div class="sm-body">
+    <div class="sm-col-left">
+      <div class="sm-item" data-win="sobre"><span class="em">📝</span>Sobre_mim.txt</div>
+      <div class="sm-item" data-win="projetos"><span class="em">🗂️</span>Projetos</div>
+      <div class="sm-item" data-win="minesweeper"><span class="em">💣</span>Campo Minado</div>
+      <div class="sm-item" data-win="paint"><span class="em">🎨</span>Paint</div>
+      <div class="sm-item" data-win="lixeira"><span class="em">🗑️</span>Lixeira</div>
+      <input class="sm-search" placeholder="Pesquisar programas e arquivos" readonly>
+    </div>
+    <div class="sm-col-right">
+      <h4>Contato</h4>
+      <a class="sm-contact" href="mailto:juliaborgesmatildeborges@gmail.com"><span class="em">✉️</span>juliaborgesmatildeborges@gmail.com</a>
+      <a class="sm-contact" href="tel:+5548991230838"><span class="em">📱</span>(48) 99123-0838</a>
+      <a class="sm-contact" href="https://wa.me/5548991230838" target="_blank" rel="noopener"><span class="em">💬</span>WhatsApp</a>
+      <!-- EDITAR AQUI: adicione LinkedIn/GitHub reais quando tiver -->
+      <a class="sm-contact" href="#"><span class="em">💼</span>LinkedIn (em breve)</a>
+      <a class="sm-contact" href="#"><span class="em">🐙</span>GitHub (em breve)</a>
+    </div>
+  </div>
+  <div class="sm-footer">
+    <div class="sm-shutdown" id="btn-shutdown"><span>⏻</span> Desligar</div>
+  </div>
+</div>
+
+<!-- ===================== INVASÃO (susto/easter egg) ===================== -->
+<div id="invasion-screen"></div>
+
+<!-- ===================== TASKBAR ===================== -->
+<div id="taskbar">
+  <div id="start-button"><span class="orb-dot"></span>Iniciar</div>
+  <div id="task-buttons"></div>
+  <div id="system-tray">
+    <span class="tray-icon">🔊</span>
+    <span class="tray-icon">📶</span>
+    <div id="clock"><div class="time">00:00</div><div class="date">—</div></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- BOOT ---------- */
+  var boot = document.getElementById('boot-screen');
+  function endBoot(){ boot.classList.add('hidden'); }
+  var bootTimer = setTimeout(endBoot, 2200);
+  boot.addEventListener('click', function(){ clearTimeout(bootTimer); endBoot(); });
+
+  /* ---------- CLOCK ---------- */
+  function pad(n){ return n<10 ? '0'+n : n; }
+  function updateClock(){
+    var d = new Date();
+    document.querySelector('#clock .time').textContent = pad(d.getHours())+':'+pad(d.getMinutes());
+    document.querySelector('#clock .date').textContent = d.toLocaleDateString('pt-BR');
+  }
+  updateClock(); setInterval(updateClock, 1000*15);
+
+  /* ---------- WINDOW MANAGER ---------- */
+  var zTop = 10;
+  var openWins = {}; // id -> taskbar button el
+
+  function winEl(id){ return document.getElementById('win-'+id); }
+
+  function focusWin(id){
+    var el = winEl(id);
+    zTop += 1;
+    el.style.zIndex = zTop;
+    document.querySelectorAll('.task-btn').forEach(function(b){ b.classList.remove('active'); });
+    if(openWins[id]) openWins[id].classList.add('active');
+  }
+
+  function addTaskButton(id, title, icon){
+    // Remove qualquer botão remanescente desta janela antes de criar um novo,
+    // garantindo que nunca existam dois botões pra mesma janela na barra de tarefas.
+    document.querySelectorAll('.task-btn[data-winid="'+id+'"]').forEach(function(el){ el.remove(); });
+    var btn = document.createElement('div');
+    btn.className = 'task-btn active';
+    btn.setAttribute('data-winid', id);
+    btn.innerHTML = '<span>'+icon+'</span><span>'+title+'</span>';
+    btn.addEventListener('click', function(){
+      var el = winEl(id);
+      if(el.classList.contains('minimized')){
+        el.classList.remove('minimized');
+        focusWin(id);
+      } else if(btn.classList.contains('active')){
+        el.classList.add('minimized');
+        btn.classList.remove('active');
+      } else {
+        focusWin(id);
+      }
+    });
+    document.getElementById('task-buttons').appendChild(btn);
+    openWins[id] = btn;
+  }
+
+  function removeTaskButton(id){
+    if(openWins[id]){ openWins[id].remove(); delete openWins[id]; }
+  }
+
+  function openWindow(id){
+    var el = winEl(id);
+    if(!el) return;
+    var titleTxt = el.querySelector('.t-left').textContent.trim();
+    var icon = el.querySelector('.t-icon').textContent;
+    el.classList.add('open');
+    el.classList.remove('minimized');
+    addTaskButton(id, titleTxt, icon);
+    focusWin(id);
+    if(id === 'minesweeper' && !msStarted){ initMinesweeper(); }
+    if(id === 'paint' && !paintStarted){ initPaint(); }
+  }
+
+  function closeWindow(id){
+    var el = winEl(id);
+    el.classList.remove('open');
+    el.classList.remove('minimized');
+    removeTaskButton(id);
+  }
+
+  function minimizeWindow(id){
+    winEl(id).classList.add('minimized');
+    if(openWins[id]) openWins[id].classList.remove('active');
+  }
+
+  function toggleMaximize(id){
+    winEl(id).classList.toggle('maximized');
+  }
+
+  // Desktop icons: double click opens
+  document.querySelectorAll('.icon').forEach(function(ic){
+    ic.addEventListener('click', function(e){
+      document.querySelectorAll('.icon').forEach(function(o){ o.classList.remove('selected'); });
+      ic.classList.add('selected');
+    });
+    ic.addEventListener('dblclick', function(){
+      openWindow(ic.getAttribute('data-win'));
+    });
+  });
+
+  // Start menu items also open windows
+  document.querySelectorAll('.sm-item').forEach(function(it){
+    it.addEventListener('click', function(){
+      openWindow(it.getAttribute('data-win'));
+      closeStartMenu();
+    });
+  });
+
+  // Title bar buttons
+  document.querySelectorAll('.tbtn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var id = btn.getAttribute('data-win').replace('win-','');
+      var action = btn.getAttribute('data-action');
+      if(action==='close') closeWindow(id);
+      if(action==='min') minimizeWindow(id);
+      if(action==='max') toggleMaximize(id);
+    });
+  });
+
+  // Focus window on mousedown anywhere inside it
+  document.querySelectorAll('.window').forEach(function(w){
+    w.addEventListener('mousedown', function(){
+      focusWin(w.id.replace('win-',''));
+    });
+  });
+
+  /* ---------- DRAG WINDOWS (pointer events = mouse+touch) ---------- */
+  document.querySelectorAll('[data-drag]').forEach(function(bar){
+    bar.addEventListener('pointerdown', function(e){
+      // Não inicia o arraste se o clique foi em um dos botões (_ □ ✕),
+      // senão o botão nunca recebe o "click" (bug do fechar/minimizar/maximizar).
+      if(e.target.closest('.tbtn')) return;
+      var id = bar.getAttribute('data-drag');
+      var win = document.getElementById(id);
+      if(win.classList.contains('maximized')) return;
+      focusWin(id.replace('win-',''));
+      var rect = win.getBoundingClientRect();
+      var offX = e.clientX - rect.left;
+      var offY = e.clientY - rect.top;
+      bar.setPointerCapture(e.pointerId);
+
+      function onMove(ev){
+        var x = Math.max(0, Math.min(window.innerWidth - 80, ev.clientX - offX));
+        var y = Math.max(0, Math.min(window.innerHeight - 80, ev.clientY - offY));
+        win.style.left = x + 'px';
+        win.style.top = y + 'px';
+      }
+      function onUp(ev){
+        bar.releasePointerCapture(e.pointerId);
+        bar.removeEventListener('pointermove', onMove);
+        bar.removeEventListener('pointerup', onUp);
+      }
+      bar.addEventListener('pointermove', onMove);
+      bar.addEventListener('pointerup', onUp);
+    });
+  });
+
+  /* ---------- START MENU ---------- */
+  var startMenu = document.getElementById('start-menu');
+  var startBtn = document.getElementById('start-button');
+  function openStartMenu(){ startMenu.classList.add('open'); }
+  function closeStartMenu(){ startMenu.classList.remove('open'); }
+  startBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    startMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', function(e){
+    if(!startMenu.contains(e.target) && e.target !== startBtn){
+      closeStartMenu();
+    }
+  });
+
+  /* ---------- SHUTDOWN / RESTART ---------- */
+  document.getElementById('btn-shutdown').addEventListener('click', function(){
+    closeStartMenu();
+    var sd = document.getElementById('shutdown-screen');
+    sd.classList.add('show');
+    setTimeout(function(){
+      sd.classList.remove('show');
+      boot.classList.remove('hidden');
+      clearTimeout(bootTimer);
+      bootTimer = setTimeout(endBoot, 1800);
+    }, 1600);
+  });
+
+  /* =====================================================
+     MINESWEEPER
+     ===================================================== */
+  var msStarted = false;
+  var SIZE = 9, MINES = 10;
+  var board, revealedCount, flagsUsed, gameOver, timerInt, seconds, firstClick;
+
+  function initMinesweeper(){
+    msStarted = true;
+    var boardEl = document.getElementById('ms-board');
+    boardEl.innerHTML = '';
+    board = [];
+    revealedCount = 0; flagsUsed = 0; gameOver = false; seconds = 0; firstClick = true;
+    document.getElementById('ms-timer').textContent = '000';
+    document.getElementById('ms-mine-count').textContent = pad3(MINES);
+    document.getElementById('ms-face').textContent = '🙂';
+    clearInterval(timerInt);
+
+    for(var r=0;r<SIZE;r++){
+      var row = [];
+      for(var c=0;c<SIZE;c++){
+        row.push({mine:false, revealed:false, flagged:false, n:0});
+      }
+      board.push(row);
+    }
+
+    for(var r=0;r<SIZE;r++){
+      for(var c=0;c<SIZE;c++){
+        var cell = document.createElement('div');
+        cell.className = 'ms-cell';
+        cell.dataset.r = r; cell.dataset.c = c;
+        cell.addEventListener('click', function(){ msReveal(+this.dataset.r, +this.dataset.c); });
+        cell.addEventListener('contextmenu', function(e){ e.preventDefault(); msFlag(+this.dataset.r, +this.dataset.c); });
+        boardEl.appendChild(cell);
+      }
+    }
+    document.getElementById('ms-face').onclick = initMinesweeper;
+  }
+
+  function pad3(n){ n = Math.max(0, Math.min(999, n)); return (n<10?'00':n<100?'0':'')+n; }
+
+  function placeMines(excludeR, excludeC){
+    var placed = 0;
+    while(placed < MINES){
+      var r = Math.floor(Math.random()*SIZE);
+      var c = Math.floor(Math.random()*SIZE);
+      if(board[r][c].mine) continue;
+      if(Math.abs(r-excludeR)<=1 && Math.abs(c-excludeC)<=1) continue;
+      board[r][c].mine = true; placed++;
+    }
+    for(var r=0;r<SIZE;r++){
+      for(var c=0;c<SIZE;c++){
+        if(board[r][c].mine) continue;
+        var n=0;
+        for(var dr=-1;dr<=1;dr++) for(var dc=-1;dc<=1;dc++){
+          var nr=r+dr, nc=c+dc;
+          if(nr>=0&&nr<SIZE&&nc>=0&&nc<SIZE&&board[nr][nc].mine) n++;
+        }
+        board[r][c].n = n;
+      }
+    }
+  }
+
+  function cellEl(r,c){ return document.querySelector('.ms-cell[data-r="'+r+'"][data-c="'+c+'"]'); }
+
+  function msReveal(r,c){
+    if(gameOver) return;
+    var cell = board[r][c];
+    if(cell.revealed || cell.flagged) return;
+
+    if(firstClick){
+      placeMines(r,c);
+      firstClick = false;
+      seconds = 0;
+      timerInt = setInterval(function(){
+        seconds++;
+        document.getElementById('ms-timer').textContent = pad3(seconds);
+      }, 1000);
+    }
+
+    if(cell.mine){
+      revealAllMines();
+      gameOver = true;
+      clearInterval(timerInt);
+      document.getElementById('ms-face').textContent = '😵';
+      cellEl(r,c).classList.add('mine');
+      return;
+    }
+    floodReveal(r,c);
+    checkWin();
+  }
+
+  function floodReveal(r,c){
+    var cell = board[r][c];
+    if(cell.revealed || cell.flagged) return;
+    cell.revealed = true; revealedCount++;
+    var el = cellEl(r,c);
+    el.classList.add('revealed');
+    if(cell.n>0){
+      el.textContent = cell.n;
+      el.dataset.n = cell.n;
+    } else {
+      for(var dr=-1;dr<=1;dr++) for(var dc=-1;dc<=1;dc++){
+        var nr=r+dr, nc=c+dc;
+        if(nr>=0&&nr<SIZE&&nc>=0&&nc<SIZE) floodReveal(nr,nc);
+      }
+    }
+  }
+
+  function msFlag(r,c){
+    if(gameOver) return;
+    var cell = board[r][c];
+    if(cell.revealed) return;
+    cell.flagged = !cell.flagged;
+    flagsUsed += cell.flagged ? 1 : -1;
+    cellEl(r,c).textContent = cell.flagged ? '🚩' : '';
+    document.getElementById('ms-mine-count').textContent = pad3(MINES - flagsUsed);
+  }
+
+  function revealAllMines(){
+    for(var r=0;r<SIZE;r++) for(var c=0;c<SIZE;c++){
+      if(board[r][c].mine){
+        var el = cellEl(r,c);
+        el.classList.add('revealed','mine');
+        el.textContent = '💣';
+      }
+    }
+  }
+
+  function checkWin(){
+    if(revealedCount === SIZE*SIZE - MINES){
+      gameOver = true;
+      clearInterval(timerInt);
+      document.getElementById('ms-face').textContent = '😎';
+    }
+  }
+
+  /* =====================================================
+     PAINT
+     ===================================================== */
+  var paintStarted = false;
+  var PAINT_COLORS = ['#000000','#7c7c7c','#880015','#ed1c24','#ff7f27','#fff200',
+                       '#22b14c','#00a2e8','#3f48cc','#a349a4','#ffffff','#c3c3c3',
+                       '#b97a57','#ffaec9','#ffc90e','#efe4b0'];
+
+  function initPaint(){
+    paintStarted = true;
+    var canvas = document.getElementById('paint-canvas');
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    var currentColor = '#000000';
+    var currentSize = 3;
+    var isErasing = false;
+    var drawing = false;
+    var lastX=0, lastY=0;
+
+    // Paleta de cores
+    var sw = document.getElementById('paint-swatches');
+    sw.innerHTML = '';
+    PAINT_COLORS.forEach(function(color, i){
+      var el = document.createElement('div');
+      el.className = 'paint-swatch' + (i===0 ? ' active':'');
+      el.style.background = color;
+      el.addEventListener('click', function(){
+        currentColor = color;
+        isErasing = false;
+        document.getElementById('paint-tool-pencil').classList.add('active');
+        document.getElementById('paint-tool-eraser').classList.remove('active');
+        document.querySelectorAll('.paint-swatch').forEach(function(s){ s.classList.remove('active'); });
+        el.classList.add('active');
+      });
+      sw.appendChild(el);
+    });
+
+    document.getElementById('paint-tool-pencil').addEventListener('click', function(){
+      isErasing = false;
+      this.classList.add('active');
+      document.getElementById('paint-tool-eraser').classList.remove('active');
+    });
+    document.getElementById('paint-tool-eraser').addEventListener('click', function(){
+      isErasing = true;
+      this.classList.add('active');
+      document.getElementById('paint-tool-pencil').classList.remove('active');
+    });
+    document.getElementById('paint-size').addEventListener('input', function(){
+      currentSize = +this.value;
+    });
+    document.getElementById('paint-clear').addEventListener('click', function(){
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+    });
+    document.getElementById('paint-save').addEventListener('click', function(){
+      var link = document.createElement('a');
+      link.download = 'meu-desenho.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+
+    function pos(e){
+      var rect = canvas.getBoundingClientRect();
+      var scaleX = canvas.width / rect.width;
+      var scaleY = canvas.height / rect.height;
+      return { x:(e.clientX-rect.left)*scaleX, y:(e.clientY-rect.top)*scaleY };
+    }
+
+    canvas.addEventListener('pointerdown', function(e){
+      drawing = true;
+      var p = pos(e);
+      lastX = p.x; lastY = p.y;
+      canvas.setPointerCapture(e.pointerId);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, currentSize/2, 0, Math.PI*2);
+      ctx.fillStyle = isErasing ? '#ffffff' : currentColor;
+      ctx.fill();
+    });
+    canvas.addEventListener('pointermove', function(e){
+      if(!drawing) return;
+      var p = pos(e);
+      ctx.strokeStyle = isErasing ? '#ffffff' : currentColor;
+      ctx.lineWidth = currentSize;
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+      lastX = p.x; lastY = p.y;
+    });
+    canvas.addEventListener('pointerup', function(){ drawing = false; });
+    canvas.addEventListener('pointerleave', function(){ drawing = false; });
+  }
+
+  /* =====================================================
+     LIXEIRA — arquivo-armadilha "NAO CLICAR!!!!"
+     ===================================================== */
+  document.getElementById('trash-danger-file').addEventListener('click', function(){
+    startFakeInvasion();
+  });
+
+  function startFakeInvasion(){
+    var screen = document.getElementById('invasion-screen');
+    screen.innerHTML = '';
+    screen.classList.add('show');
+
+    var lines = [
+      'AVISO: você foi avisada(o).',
+      '',
+      'iniciando diagnóstico do sistema...',
+      'verificando permissões............ negado',
+      'contornando firewall.......... 23%',
+      'contornando firewall.......... 67%',
+      'contornando firewall.......... 100%',
+      'acesso concedido a: NUCLEO_PRINCIPAL',
+      'conectando a servidor remoto...',
+      'transferindo arquivos [############] 100%',
+      '',
+      'brincadeira. relaxa. 😏',
+      'redirecionando...'
+    ];
+
+    var i = 0;
+    function nextLine(){
+      if(i < lines.length){
+        var d = document.createElement('div');
+        d.className = 'inv-line';
+        d.textContent = lines[i];
+        screen.appendChild(d);
+        i++;
+        if(i > 3) screen.classList.add('glitch');
+        setTimeout(nextLine, 220);
+      } else {
+        setTimeout(function(){
+          window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+        }, 700);
+      }
+    }
+    nextLine();
+  }
+
+  /* Abre "Sobre mim" já no início, pra dar boas-vindas */
+  setTimeout(function(){ openWindow('sobre'); }, 2400);
+
+})();
+</script>
+</body>
+</html>
