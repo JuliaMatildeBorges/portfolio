@@ -328,7 +328,7 @@ img{-webkit-user-drag:none;user-drag:none;}
 .paint-tool.active{border-color:#7c8794 #f4f6f8 #f4f6f8 #7c8794;background:#b7c1cb;}
 .paint-toolbar label{font-size:11px;color:#333;display:flex;align-items:center;gap:4px;}
 .paint-canvas-wrap{flex:1;overflow:auto;background:#8c98a4;display:flex;align-items:flex-start;justify-content:center;padding:10px;}
-#paint-canvas{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3);touch-action:none;cursor:crosshair;}
+#paint-canvas{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3);touch-action:none;cursor:crosshair;max-width:100%;height:auto;}
 
 /* ---------------- LIXEIRA ITEMS ---------------- */
 .trash-list{padding:14px;display:flex;flex-direction:column;gap:8px;}
@@ -440,30 +440,30 @@ img{-webkit-user-drag:none;user-drag:none;}
 #start-button:active{transform:translateY(1px);box-shadow:inset 0 2px 4px rgba(0,0,0,.35);}
 .start-logo{width:25px;height:25px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35));}
 
-#task-buttons{display:flex;gap:5px;flex:1;height:36px;align-items:center;overflow:hidden;}
+#task-buttons{display:flex;gap:5px;flex:1;height:36px;align-items:center;overflow:hidden;min-width:0;}
 .task-btn{
   height:32px;padding:0 12px;border-radius:4px;display:flex;align-items:center;gap:7px;
   background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
   color:#eef2f6;font-size:12px;cursor:pointer;max-width:170px;
-  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex:0 1 auto;
 }
 .task-btn.active{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.4);box-shadow:inset 0 0 8px rgba(0,0,0,.25);}
 .task-btn:hover{background:rgba(255,255,255,.2);}
 
-#system-tray{display:flex;align-items:center;gap:10px;padding:0 12px;height:36px;
+#system-tray{display:flex;align-items:center;gap:10px;padding:0 12px;height:36px;flex:0 0 auto;
   background:rgba(255,255,255,.06);border-radius:4px;border:1px solid rgba(255,255,255,.14);color:#eaf0f6;}
 .tray-icon{font-size:14px;opacity:.9;}
 .tray-button{border:0;background:transparent;color:inherit;padding:3px;line-height:1;cursor:pointer;border-radius:3px;}
 .tray-button:hover,.tray-button.active{background:rgba(255,255,255,.16);}
-.volume-popover{position:fixed;right:72px;bottom:50px;width:155px;padding:10px;background:#c0c0c0;border:2px solid;border-color:#fff #404040 #404040 #fff;box-shadow:2px 2px 0 #000;display:none;z-index:600;}
+.volume-popover{position:fixed;right:12px;bottom:50px;width:155px;max-width:70vw;padding:10px;background:#c0c0c0;border:2px solid;border-color:#fff #404040 #404040 #fff;box-shadow:2px 2px 0 #000;display:none;z-index:600;}
 .volume-popover.open{display:flex;align-items:center;gap:8px;}
 .volume-popover input{width:100%;accent-color:#1c5aa0;}
 #clock{font-size:11.5px;text-align:right;line-height:1.25;}
 #clock .date{font-size:10px;opacity:.8;}
 
 /* ---------------- MP3 PLAYER (Windows 98) ---------------- */
-.music-player{min-height:100%;padding:12px;background:#c0c0c0;border:2px solid;border-color:#fff #404040 #404040 #fff;font-family:var(--font-mono);display:flex;align-items:center;gap:14px;}
-.music-cover{width:185px;height:185px;flex:0 0 auto;object-fit:cover;border:2px solid;border-color:#404040 #fff #fff #404040;image-rendering:auto;}
+.music-player{min-height:100%;padding:12px;background:#c0c0c0;border:2px solid;border-color:#fff #404040 #404040 #fff;font-family:var(--font-mono);display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.music-cover{width:185px;height:185px;flex:0 0 auto;object-fit:cover;border:2px solid;border-color:#404040 #fff #fff #404040;image-rendering:auto;max-width:100%;}
 .music-panel{min-width:0;display:flex;flex:1;flex-direction:column;gap:10px;}
 .music-now{padding:8px;background:#071e10;border:2px solid;border-color:#404040 #fff #fff #404040;color:#61f27c;min-height:62px;}
 .music-now h4{margin:0 0 6px;font-size:12px;color:#b6ffc4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -478,19 +478,34 @@ img{-webkit-user-drag:none;user-drag:none;}
 .music-counter{text-align:center;font-size:10.5px;color:#333;}
 
 /* ---------------- RESPONSIVE ---------------- */
-@media (max-width:720px){
-  .window{width:92vw !important;height:72vh !important;left:4vw !important;top:8vh !important;}
-  #start-menu{width:94vw;left:3vw;bottom:50px;}
+@media (max-width:900px), (max-height:520px){
+  .window{width:94vw !important;height:78vh !important;left:3vw !important;top:5vh !important;max-width:94vw;max-height:78vh;min-width:0;resize:none;}
+  #start-menu{width:94vw;left:3vw;bottom:50px;max-height:70vh;}
+  .sm-body{min-height:0;}
   .desktop-icons{top:10px;left:8px;gap:2px;}
-  .icon{width:70px;}
-  .project-gallery-photo{height:210px;}
-  .carousel-control{top:108px;}
+  .icon{width:68px;}
+  .icon span{font-size:10.5px;}
+  .project-gallery-photo{height:44vh;}
+  .carousel-control{top:calc(22vh - 17px);}
   .project-gallery-footer{align-items:flex-start;flex-direction:column;}
   .music-player{flex-direction:column;align-items:center;}
-  .music-cover{width:125px;height:125px;}
+  .music-cover{width:110px;height:110px;}
   .music-panel{width:100%;}
-  .ms-board{grid-template-columns:repeat(9,24px);grid-template-rows:repeat(9,24px);}
-  .ms-cell{width:24px;height:24px;font-size:11px;}
+  .ms-wrap{padding:8px;}
+  .ms-board{grid-template-columns:repeat(9,minmax(20px,26px));grid-template-rows:repeat(9,minmax(20px,26px));}
+  .ms-cell{width:auto;height:auto;aspect-ratio:1/1;font-size:11px;}
+  .paint-toolbar{gap:6px;padding:6px;}
+  .gallery-grid{grid-template-columns:1fr;}
+  .task-btn span:last-child{max-width:70px;overflow:hidden;text-overflow:ellipsis;}
+}
+@media (max-width:420px){
+  #start-button{width:32px;height:32px;}
+  .start-logo{width:20px;height:20px;}
+  #system-tray{gap:6px;padding:0 8px;}
+  #clock{font-size:10px;}
+  .sm-body{flex-direction:column;}
+  .sm-col-left,.sm-col-right{flex:1;border-right:none;}
+  .sm-col-right{border-top:1px solid #d3dae1;}
 }
 </style>
 </head>
@@ -617,36 +632,20 @@ Julia Matilde Borges</div>
     <div class="win-content">
       <div class="gallery-wrap">
         <div class="gallery-grid">
-          <button class="project-card project-card-button" type="button" data-win="projeto-1" aria-label="Abrir a galeria do projeto 1">
-            <div class="project-photo project-photo-image"><img src="img/bombeiro.png" alt="Prévia do projeto 1"></div>
+          <button class="project-card project-card-button" type="button" data-win="projeto-1" aria-label="Abrir a galeria do projeto Bombeiro">
+            <div class="project-photo project-photo-image"><img src="img/projetos/bombeiro-1.png" alt="Prévia do projeto Bombeiro"></div>
             <div class="project-body">
-              <h4>Nome do Projeto 1</h4>
+              <h4>Projeto Bombeiro</h4>
               <p>Breve descrição do que o projeto faz e qual problema resolve.</p>
               <div class="tag-row"><span class="tag">Java</span><span class="tag">Spring</span><span class="tag">MySQL</span></div>
             </div>
           </button>
-          <button class="project-card project-card-button" type="button" data-win="projeto-2" aria-label="Abrir a galeria do projeto 2">
-            <div class="project-photo">📷 espaço para print<br>do projeto 2</div>
+          <button class="project-card project-card-button" type="button" data-win="projeto-2" aria-label="Abrir a galeria do projeto Biblioteca">
+            <div class="project-photo project-photo-image"><img src="img/projetos/biblioteca-1.png" alt="Prévia do projeto Biblioteca"></div>
             <div class="project-body">
-              <h4>Nome do Projeto 2</h4>
+              <h4>Projeto Biblioteca</h4>
               <p>Breve descrição do que o projeto faz e qual problema resolve.</p>
               <div class="tag-row"><span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">CSS</span></div>
-            </div>
-          </button>
-          <button class="project-card project-card-button" type="button" data-win="projeto-3" aria-label="Abrir a galeria do projeto 3">
-            <div class="project-photo">📷 espaço para print<br>do projeto 3</div>
-            <div class="project-body">
-              <h4>Nome do Projeto 3</h4>
-              <p>Breve descrição do que o projeto faz e qual problema resolve.</p>
-              <div class="tag-row"><span class="tag">Java</span><span class="tag">MySQL</span></div>
-            </div>
-          </button>
-          <button class="project-card project-card-button" type="button" data-win="projeto-4" aria-label="Abrir a galeria do projeto 4">
-            <div class="project-photo">📷 espaço para print<br>do projeto 4</div>
-            <div class="project-body">
-              <h4>Nome do Projeto 4</h4>
-              <p>Breve descrição do que o projeto faz e qual problema resolve.</p>
-              <div class="tag-row"><span class="tag">React</span><span class="tag">Spring</span></div>
             </div>
           </button>
         </div>
@@ -654,10 +653,10 @@ Julia Matilde Borges</div>
     </div>
   </div>
 
-  <!-- ---- Janela: Galeria do Projeto 1 ---- -->
+  <!-- ---- Janela: Galeria do Projeto Bombeiro ---- -->
   <div class="window" id="win-projeto-1" style="width:620px;height:430px;top:80px;left:260px;">
     <div class="titlebar" data-drag="win-projeto-1">
-      <div class="t-left"><img class="t-icon titlebar-icon" src="img/icons/projetos.png" alt="🗂️"><span class="t-text">Projeto 1 — Galeria</span></div>
+      <div class="t-left"><img class="t-icon titlebar-icon" src="img/icons/projetos.png" alt="🗂️"><span class="t-text">Projeto Bombeiro — Galeria</span></div>
       <div class="t-btns">
         <div class="tbtn" data-action="min" data-win="win-projeto-1">_</div>
         <div class="tbtn" data-action="max" data-win="win-projeto-1">□</div>
@@ -667,16 +666,16 @@ Julia Matilde Borges</div>
     <div class="win-content">
       <div class="project-gallery">
         <div class="project-gallery-photos">
-          <div class="project-gallery-photo"><img src="img/bombeiro.png" alt="Imagem do projeto 1"></div>
-          <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 1</span></div>
-          <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 1</span></div>
+          <div class="project-gallery-photo"><img src="img/projetos/bombeiro-1.png" alt="Imagem 1 do projeto Bombeiro"></div>
+          <div class="project-gallery-photo"><img src="img/projetos/bombeiro-2.png" alt="Imagem 2 do projeto Bombeiro"></div>
+          <div class="project-gallery-photo"><img src="img/projetos/bombeiro-3.png" alt="Imagem 3 do projeto Bombeiro"></div>
         </div>
         <button class="carousel-control prev" type="button" aria-label="Foto anterior">‹</button>
         <button class="carousel-control next" type="button" aria-label="Próxima foto">›</button>
         <div class="carousel-dots" aria-label="Navegação da galeria"></div>
         <div class="project-gallery-footer">
           <div class="project-gallery-copy">
-            <h4>Nome do Projeto 1</h4>
+            <h4>Projeto Bombeiro</h4>
             <p>Galeria do projeto. Novas imagens podem ser adicionadas aqui.</p>
           </div>
           <a class="view-project-button" href="https://github.com/JuliaMatildeBorges" target="_blank" rel="noopener">Ver projeto</a>
@@ -685,52 +684,20 @@ Julia Matilde Borges</div>
     </div>
   </div>
 
-  <!-- ---- Janelas: Galerias dos projetos 2, 3 e 4 ---- -->
+  <!-- ---- Janela: Galeria do Projeto Biblioteca ---- -->
   <div class="window" id="win-projeto-2" style="width:620px;height:430px;top:90px;left:280px;">
     <div class="titlebar" data-drag="win-projeto-2">
-      <div class="t-left"><img class="t-icon titlebar-icon" src="img/icons/projetos.png" alt="🗂️"><span class="t-text">Projeto 2 — Galeria</span></div>
+      <div class="t-left"><img class="t-icon titlebar-icon" src="img/icons/projetos.png" alt="🗂️"><span class="t-text">Projeto Biblioteca — Galeria</span></div>
       <div class="t-btns"><div class="tbtn" data-action="min" data-win="win-projeto-2">_</div><div class="tbtn" data-action="max" data-win="win-projeto-2">□</div><div class="tbtn close" data-action="close" data-win="win-projeto-2">✕</div></div>
     </div>
     <div class="win-content"><div class="project-gallery">
       <div class="project-gallery-photos">
-        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 2</span></div>
-        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 2</span></div>
-        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 2</span></div>
+        <div class="project-gallery-photo"><img src="img/projetos/biblioteca-1.png" alt="Imagem 1 do projeto Biblioteca"></div>
+        <div class="project-gallery-photo"><img src="img/projetos/biblioteca-2.png" alt="Imagem 2 do projeto Biblioteca"></div>
+        <div class="project-gallery-photo"><img src="img/projetos/biblioteca-3.png" alt="Imagem 3 do projeto Biblioteca"></div>
       </div>
       <button class="carousel-control prev" type="button" aria-label="Foto anterior">‹</button><button class="carousel-control next" type="button" aria-label="Próxima foto">›</button><div class="carousel-dots" aria-label="Navegação da galeria"></div>
-      <div class="project-gallery-footer"><div class="project-gallery-copy"><h4>Nome do Projeto 2</h4><p>Galeria do projeto. Novas imagens podem ser adicionadas aqui.</p></div><a class="view-project-button" href="https://github.com/JuliaMatildeBorges" target="_blank" rel="noopener">Ver projeto</a></div>
-    </div></div>
-  </div>
-
-  <div class="window" id="win-projeto-3" style="width:620px;height:430px;top:100px;left:300px;">
-    <div class="titlebar" data-drag="win-projeto-3">
-      <div class="t-left"><img class="t-icon titlebar-icon" src="img/icons/projetos.png" alt="🗂️"><span class="t-text">Projeto 3 — Galeria</span></div>
-      <div class="t-btns"><div class="tbtn" data-action="min" data-win="win-projeto-3">_</div><div class="tbtn" data-action="max" data-win="win-projeto-3">□</div><div class="tbtn close" data-action="close" data-win="win-projeto-3">✕</div></div>
-    </div>
-    <div class="win-content"><div class="project-gallery">
-      <div class="project-gallery-photos">
-        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 3</span></div>
-        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 3</span></div>
-        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 3</span></div>
-      </div>
-      <button class="carousel-control prev" type="button" aria-label="Foto anterior">‹</button><button class="carousel-control next" type="button" aria-label="Próxima foto">›</button><div class="carousel-dots" aria-label="Navegação da galeria"></div>
-      <div class="project-gallery-footer"><div class="project-gallery-copy"><h4>Nome do Projeto 3</h4><p>Galeria do projeto. Novas imagens podem ser adicionadas aqui.</p></div><a class="view-project-button" href="https://github.com/JuliaMatildeBorges" target="_blank" rel="noopener">Ver projeto</a></div>
-    </div></div>
-  </div>
-
-  <div class="window" id="win-projeto-4" style="width:620px;height:430px;top:110px;left:320px;">
-    <div class="titlebar" data-drag="win-projeto-4">
-      <div class="t-left"><img class="t-icon titlebar-icon" src="img/icons/projetos.png" alt="🗂️"><span class="t-text">Projeto 4 — Galeria</span></div>
-      <div class="t-btns"><div class="tbtn" data-action="min" data-win="win-projeto-4">_</div><div class="tbtn" data-action="max" data-win="win-projeto-4">□</div><div class="tbtn close" data-action="close" data-win="win-projeto-4">✕</div></div>
-    </div>
-    <div class="win-content"><div class="project-gallery">
-      <div class="project-gallery-photos">
-        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 4</span></div>
-        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 4</span></div>
-        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 4</span></div>
-      </div>
-      <button class="carousel-control prev" type="button" aria-label="Foto anterior">‹</button><button class="carousel-control next" type="button" aria-label="Próxima foto">›</button><div class="carousel-dots" aria-label="Navegação da galeria"></div>
-      <div class="project-gallery-footer"><div class="project-gallery-copy"><h4>Nome do Projeto 4</h4><p>Galeria do projeto. Novas imagens podem ser adicionadas aqui.</p></div><a class="view-project-button" href="https://github.com/JuliaMatildeBorges" target="_blank" rel="noopener">Ver projeto</a></div>
+      <div class="project-gallery-footer"><div class="project-gallery-copy"><h4>Projeto Biblioteca</h4><p>Galeria do projeto. Novas imagens podem ser adicionadas aqui.</p></div><a class="view-project-button" href="https://github.com/JuliaMatildeBorges" target="_blank" rel="noopener">Ver projeto</a></div>
     </div></div>
   </div>
 
