@@ -5,10 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Julia Matilde Borges — Portfólio</title>
 <style>
-/* =========================================================
-   JULIA MATILDE BORGES — PORTFÓLIO "WINDOWS 7"
-   Um único arquivo. Procure "EDITAR AQUI" pra trocar fotos/projetos.
-   ========================================================= */
+
 :root{
   --aero-blue-dark:#0b2e52;
   --aero-blue:#1c5aa0;
@@ -37,25 +34,68 @@ img{-webkit-user-drag:none;user-drag:none;}
 #boot-screen{
   position:fixed;inset:0;background:#000;z-index:9999;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  color:#dfe6ef;transition:opacity .8s ease;
+  color:#dfe6ef;transition:opacity .8s ease;overflow:hidden;
 }
 #boot-screen.hidden{opacity:0;pointer-events:none;}
+.boot-bg{
+  position:absolute;inset:-20px;
+  background:url('img/bg.jpg') center/cover no-repeat;
+  filter:blur(22px) brightness(.55) saturate(1.1);
+  transform:scale(1.08);
+}
+.boot-overlay{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at center, rgba(5,15,30,.25), rgba(0,0,0,.65));
+}
+.boot-center{position:relative;display:flex;flex-direction:column;align-items:center;z-index:1;}
+.boot-phase{display:flex;flex-direction:column;align-items:center;}
+.boot-login{opacity:0;transition:opacity .5s ease;}
+.boot-login.visible{opacity:1;}
+.enter-site{
+  width:128px;height:128px;padding:0;border-radius:50%;overflow:hidden;
+  border:3px solid rgba(255,255,255,.85);
+  box-shadow:0 8px 26px rgba(0,0,0,.5), 0 0 0 4px rgba(255,255,255,.15);
+  cursor:pointer;background:#0b2e52;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.enter-site:hover{transform:scale(1.04);box-shadow:0 10px 30px rgba(0,0,0,.55),0 0 0 5px rgba(255,255,255,.25);}
+.enter-site:active{transform:scale(.98);}
+.enter-photo{width:100%;height:100%;object-fit:cover;display:block;}
+.enter-photo-fallback{
+  display:none;width:100%;height:100%;align-items:center;justify-content:center;
+  font-size:34px;font-weight:700;color:#fff;
+  background:linear-gradient(145deg,#8fd0ff,#1c5aa0);
+}
+.boot-username{margin-top:18px;font-size:16px;font-weight:600;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6);}
+.boot-hint{margin-top:6px;font-size:11px;color:#cdd8e4;opacity:.85;}
+.boot-logo{
+  width:96px;height:96px;object-fit:contain;
+  filter:drop-shadow(0 0 26px rgba(95,168,224,.65));
+  transform:scale(.15);opacity:0;
+  animation:boot-grow 1.1s cubic-bezier(.2,.8,.2,1) forwards;
+}
+.boot-logo.grown{animation:boot-pulse 1.6s ease-in-out infinite;}
+@keyframes boot-grow{
+  0%{transform:scale(.15);opacity:0;}
+  55%{opacity:1;}
+  100%{transform:scale(1);opacity:1;}
+}
+@keyframes boot-pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
 .boot-orb{
   width:64px;height:64px;border-radius:50%;
   background:radial-gradient(circle at 35% 30%, #8fd0ff, #1c5aa0 55%, #0b2e52 100%);
   box-shadow:0 0 24px rgba(95,168,224,.6);
-  margin-bottom:26px;
   animation:pulse 1.6s ease-in-out infinite;
 }
 @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.12);}}
-.boot-title{font-size:15px;letter-spacing:2px;font-weight:300;color:#cdd8e4;}
+.boot-title{font-size:15px;letter-spacing:2px;font-weight:300;color:#cdd8e4;margin-top:22px;}
 .boot-dots{display:flex;gap:6px;margin-top:18px;}
 .boot-dots span{width:6px;height:6px;border-radius:50%;background:#3d75ad;animation:blink 1.2s infinite;}
 .boot-dots span:nth-child(2){animation-delay:.2s;}
 .boot-dots span:nth-child(3){animation-delay:.4s;}
 .boot-dots span:nth-child(4){animation-delay:.6s;}
 @keyframes blink{0%,100%{opacity:.25;}50%{opacity:1;}}
-.boot-skip{position:absolute;bottom:22px;font-size:11px;color:#5a6c80;}
+.boot-skip{position:absolute;bottom:22px;font-size:11px;color:#cdd8e4;z-index:1;}
 
 /* ---------------- SHUTDOWN SCREEN ---------------- */
 #shutdown-screen{
@@ -74,6 +114,7 @@ img{-webkit-user-drag:none;user-drag:none;}
 #desktop{
   position:fixed;inset:0;
   background:
+    url('img/bg.jpg') center/cover no-repeat,
     radial-gradient(ellipse 900px 700px at 78% 88%, rgba(255,255,255,0.10), transparent 60%),
     radial-gradient(ellipse 1200px 900px at 15% 100%, rgba(120,190,255,0.18), transparent 55%),
     linear-gradient(160deg, #05192f 0%, #0c3564 35%, #1c5aa0 68%, #3f83c2 100%);
@@ -99,8 +140,13 @@ img{-webkit-user-drag:none;user-drag:none;}
 }
 .icon.selected{background:rgba(255,255,255,.18);outline:1px dashed rgba(255,255,255,.5);}
 .icon-img{
-  width:42px;height:42px;display:flex;align-items:center;justify-content:center;
-  font-size:28px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6));
+  width:42px;height:42px;position:relative;display:flex;align-items:center;justify-content:center;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.6));
+}
+.icon-img img{width:100%;height:100%;object-fit:contain;}
+.icon-fallback{
+  display:none;align-items:center;justify-content:center;
+  position:absolute;inset:0;font-size:28px;
 }
 .icon span{
   font-size:11.5px;color:#fff;line-height:1.25;
@@ -182,11 +228,35 @@ img{-webkit-user-drag:none;user-drag:none;}
   background:#fff;border:1px solid #d7dde3;border-radius:6px;overflow:hidden;
   box-shadow:0 2px 6px rgba(0,0,0,.08);display:flex;flex-direction:column;
 }
+.project-card-button{width:100%;padding:0;text-align:left;font:inherit;cursor:pointer;}
+.project-card-button:hover{border-color:#5fa8e0;box-shadow:0 4px 12px rgba(28,90,160,.22);transform:translateY(-1px);}
+.project-card-button:focus-visible{outline:3px solid #5fa8e0;outline-offset:2px;}
 .project-photo{
   height:120px;display:flex;align-items:center;justify-content:center;
   background:repeating-linear-gradient(135deg,#eef2f6,#eef2f6 10px,#e4e9ee 10px,#e4e9ee 20px);
   border-bottom:1px dashed #c3cbd3;color:#8894a1;font-size:11px;text-align:center;padding:8px;
 }
+.project-photo.project-photo-image{padding:0;}
+.project-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.project-gallery{padding:18px;display:flex;flex-direction:column;gap:14px;min-height:100%;position:relative;}
+.project-gallery-photos{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;border-radius:5px;scrollbar-width:none;}
+.project-gallery-photos::-webkit-scrollbar{display:none;}
+.project-gallery-photo{flex:0 0 100%;height:260px;background:#182635;border:1px solid #aab9c7;border-radius:5px;overflow:hidden;scroll-snap-align:start;}
+.project-gallery-photo img{width:100%;height:100%;object-fit:contain;display:block;}
+.project-gallery-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:repeating-linear-gradient(135deg,#eef2f6,#eef2f6 10px,#e4e9ee 10px,#e4e9ee 20px);color:#667687;font-size:11px;text-align:center;}
+.project-gallery-placeholder img{width:42px;height:42px;object-fit:contain;opacity:.7;}
+.carousel-control{position:absolute;top:126px;width:34px;height:34px;border:1px solid rgba(255,255,255,.7);border-radius:50%;background:rgba(11,46,82,.82);color:#fff;font-size:23px;line-height:1;cursor:pointer;z-index:1;box-shadow:0 1px 5px rgba(0,0,0,.35);}
+.carousel-control:hover{background:rgba(28,90,160,.96);}
+.carousel-control.prev{left:28px;}.carousel-control.next{right:28px;}
+.carousel-dots{display:flex;justify-content:center;gap:6px;margin-top:-5px;}
+.carousel-dot{width:7px;height:7px;border:0;border-radius:50%;background:#aab9c7;padding:0;cursor:pointer;}
+.carousel-dot.active{background:#1c5aa0;}
+.project-gallery-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.project-gallery-copy h4{margin:0 0 4px;color:#12345b;font-size:15px;}
+.project-gallery-copy p{margin:0;color:#3a4652;font-size:12px;}
+.view-project-button{display:inline-flex;align-items:center;justify-content:center;padding:8px 14px;border-radius:4px;background:linear-gradient(180deg,#5fa8e0,#1c5aa0);border:1px solid #0b3d6b;color:#fff;text-decoration:none;font-size:12px;font-weight:700;white-space:nowrap;}
+.view-project-button:hover{filter:brightness(1.1);}
+.titlebar .titlebar-icon{width:17px;height:17px;object-fit:contain;}
 .project-body{padding:10px 12px 12px;}
 .project-body h4{margin:0 0 4px;font-size:13.5px;color:#12345b;}
 .project-body p{margin:0 0 8px;font-size:11.8px;color:#3a4652;line-height:1.5;}
@@ -306,11 +376,8 @@ img{-webkit-user-drag:none;user-drag:none;}
 }
 .sm-avatar{
   width:46px;height:46px;border-radius:6px;flex:0 0 auto;
-  background:linear-gradient(145deg,#8fd0ff,#1c5aa0);
-  display:flex;align-items:center;justify-content:center;
-  font-weight:700;font-size:17px;color:#fff;
   border:2px solid rgba(255,255,255,.7);
-  /* EDITAR AQUI: troque por <img src="sua-foto.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:4px;"> */
+  object-fit:cover;
 }
 .sm-header h3{margin:0;font-size:14.5px;}
 .sm-header p{margin:2px 0 0;font-size:11px;opacity:.9;}
@@ -324,7 +391,7 @@ img{-webkit-user-drag:none;user-drag:none;}
   font-size:12.5px;color:#1a2733;cursor:pointer;
 }
 .sm-item:hover{background:rgba(95,168,224,.35);}
-.sm-item .em{font-size:17px;width:22px;text-align:center;}
+.sm-menu-icon{width:22px;height:22px;object-fit:contain;flex:0 0 auto;}
 .sm-col-right{
   flex:1;padding:10px 8px;background:rgba(255,255,255,.35);
   display:flex;flex-direction:column;gap:2px;
@@ -338,6 +405,7 @@ img{-webkit-user-drag:none;user-drag:none;}
   text-decoration:none;
 }
 .sm-contact:hover{background:rgba(95,168,224,.35);}
+.sm-contact-icon{width:18px;height:18px;object-fit:contain;flex:0 0 auto;}
 .sm-search{
   margin:8px 10px 10px;padding:6px 10px;border-radius:3px;border:1px solid #b7c2cc;
   font-size:12px;color:#7c8794;background:#fff;
@@ -362,14 +430,15 @@ img{-webkit-user-drag:none;user-drag:none;}
   display:flex;align-items:center;padding:0 6px;gap:6px;
 }
 #start-button{
-  display:flex;align-items:center;gap:7px;height:36px;padding:0 14px 0 10px;
-  border-radius:5px;border:1px solid rgba(255,255,255,.25);
-  background:linear-gradient(180deg, #6ec93f, var(--orb-green) 60%, #2c7513);
-  box-shadow:0 0 10px rgba(80,200,50,.5), inset 0 1px 0 rgba(255,255,255,.6);
-  color:#fff;font-size:13px;font-weight:600;cursor:pointer;text-shadow:0 1px 1px rgba(0,0,0,.4);
+  width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;
+  border-radius:4px;border:1px solid #1f6512;
+  background:linear-gradient(180deg,#82db53 0%,#4da52e 54%,#2b7e18 100%);
+  box-shadow:0 2px 5px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.72);
+  cursor:pointer;
 }
-#start-button:hover{filter:brightness(1.08);}
-.orb-dot{width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#bfe89a 60%,transparent);}
+#start-button:hover{filter:brightness(1.1);}
+#start-button:active{transform:translateY(1px);box-shadow:inset 0 2px 4px rgba(0,0,0,.35);}
+.start-logo{width:25px;height:25px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35));}
 
 #task-buttons{display:flex;gap:5px;flex:1;height:36px;align-items:center;overflow:hidden;}
 .task-btn{
@@ -384,8 +453,29 @@ img{-webkit-user-drag:none;user-drag:none;}
 #system-tray{display:flex;align-items:center;gap:10px;padding:0 12px;height:36px;
   background:rgba(255,255,255,.06);border-radius:4px;border:1px solid rgba(255,255,255,.14);color:#eaf0f6;}
 .tray-icon{font-size:14px;opacity:.9;}
+.tray-button{border:0;background:transparent;color:inherit;padding:3px;line-height:1;cursor:pointer;border-radius:3px;}
+.tray-button:hover,.tray-button.active{background:rgba(255,255,255,.16);}
+.volume-popover{position:fixed;right:72px;bottom:50px;width:155px;padding:10px;background:#c0c0c0;border:2px solid;border-color:#fff #404040 #404040 #fff;box-shadow:2px 2px 0 #000;display:none;z-index:600;}
+.volume-popover.open{display:flex;align-items:center;gap:8px;}
+.volume-popover input{width:100%;accent-color:#1c5aa0;}
 #clock{font-size:11.5px;text-align:right;line-height:1.25;}
 #clock .date{font-size:10px;opacity:.8;}
+
+/* ---------------- MP3 PLAYER (Windows 98) ---------------- */
+.music-player{min-height:100%;padding:12px;background:#c0c0c0;border:2px solid;border-color:#fff #404040 #404040 #fff;font-family:var(--font-mono);display:flex;align-items:center;gap:14px;}
+.music-cover{width:185px;height:185px;flex:0 0 auto;object-fit:cover;border:2px solid;border-color:#404040 #fff #fff #404040;image-rendering:auto;}
+.music-panel{min-width:0;display:flex;flex:1;flex-direction:column;gap:10px;}
+.music-now{padding:8px;background:#071e10;border:2px solid;border-color:#404040 #fff #fff #404040;color:#61f27c;min-height:62px;}
+.music-now h4{margin:0 0 6px;font-size:12px;color:#b6ffc4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.music-now p{margin:0;font-size:10.5px;color:#61f27c;}
+.music-progress{width:100%;accent-color:#3d75ad;cursor:pointer;}
+.music-controls{display:flex;align-items:center;justify-content:center;gap:10px;}
+.music-control{width:36px;height:32px;border:2px solid;border-color:#fff #404040 #404040 #fff;background:#c0c0c0;color:#111;font-size:15px;cursor:pointer;}
+.music-control:active{border-color:#404040 #fff #fff #404040;}
+.music-play{width:48px;height:40px;font-size:18px;}
+.music-volume-row{display:flex;align-items:center;gap:7px;font-size:11px;color:#222;}
+.music-volume{flex:1;accent-color:#3d75ad;cursor:pointer;}
+.music-counter{text-align:center;font-size:10.5px;color:#333;}
 
 /* ---------------- RESPONSIVE ---------------- */
 @media (max-width:720px){
@@ -393,6 +483,12 @@ img{-webkit-user-drag:none;user-drag:none;}
   #start-menu{width:94vw;left:3vw;bottom:50px;}
   .desktop-icons{top:10px;left:8px;gap:2px;}
   .icon{width:70px;}
+  .project-gallery-photo{height:210px;}
+  .carousel-control{top:108px;}
+  .project-gallery-footer{align-items:flex-start;flex-direction:column;}
+  .music-player{flex-direction:column;align-items:center;}
+  .music-cover{width:125px;height:125px;}
+  .music-panel{width:100%;}
   .ms-board{grid-template-columns:repeat(9,24px);grid-template-rows:repeat(9,24px);}
   .ms-cell{width:24px;height:24px;font-size:11px;}
 }
@@ -400,12 +496,28 @@ img{-webkit-user-drag:none;user-drag:none;}
 </head>
 <body>
 
+
 <!-- ===================== BOOT SCREEN ===================== -->
 <div id="boot-screen">
-  <div class="boot-orb"></div>
-  <div class="boot-title">Iniciando o Windows</div>
-  <div class="boot-dots"><span></span><span></span><span></span><span></span></div>
-  <div class="boot-skip">clique para entrar</div>
+  <div class="boot-bg"></div>
+  <div class="boot-overlay"></div>
+  <div class="boot-center">
+    <!-- Fase 1: animação de abertura -->
+    <div class="boot-phase" id="boot-intro">
+      <img class="boot-logo" id="boot-logo" src="img/logo.png" alt="Logo">
+      <div class="boot-title">Iniciando o Windows</div>
+      <div class="boot-dots"><span></span><span></span><span></span><span></span></div>
+    </div>
+    <!-- Fase 2: "login" com a foto de perfil -->
+    <div class="boot-phase boot-login" id="boot-login" style="display:none;">
+      <button class="enter-site" id="enter-site" type="button" aria-label="Entrar no portfólio de Júlia Matilde Borges">
+        <img class="enter-photo" src="img/foto.jpg" alt="Foto de perfil de Júlia Matilde Borges" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="enter-photo-fallback">JB</span>
+      </button>
+      <div class="boot-username">Júlia Matilde Borges</div>
+      <div class="boot-hint">Clique para entrar</div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== SHUTDOWN SCREEN ===================== -->
@@ -419,27 +531,55 @@ img{-webkit-user-drag:none;user-drag:none;}
   <div class="wallpaper-swirl"></div>
 
   <div class="desktop-icons">
+    <!-- Cada ícone busca a imagem em img/icons/; se o arquivo não existir, mostra o emoji de fallback -->
     <div class="icon" data-win="sobre">
-      <div class="icon-img">📝</div><span>Sobre_mim.txt</span>
+      <div class="icon-img">
+        <img src="img/icons/sobre.png" alt="Sobre mim" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="icon-fallback">📝</span>
+      </div>
+      <span>Sobre_mim.txt</span>
     </div>
     <div class="icon" data-win="projetos">
-      <div class="icon-img">🗂️</div><span>Projetos</span>
+      <div class="icon-img">
+        <img src="img/icons/projetos.png" alt="Projetos" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="icon-fallback">🗂️</span>
+      </div>
+      <span>Projetos</span>
     </div>
     <div class="icon" data-win="minesweeper">
-      <div class="icon-img">💣</div><span>Campo Minado.exe</span>
+      <div class="icon-img">
+        <img src="img/icons/minesweeper.png" alt="Campo Minado" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="icon-fallback">💣</span>
+      </div>
+      <span>Campo Minado.exe</span>
     </div>
     <div class="icon" data-win="paint">
-      <div class="icon-img">🎨</div><span>Paint.exe</span>
+      <div class="icon-img">
+        <img src="img/icons/paint.png" alt="Paint" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="icon-fallback">🎨</span>
+      </div>
+      <span>Paint.exe</span>
     </div>
     <div class="icon" data-win="lixeira">
-      <div class="icon-img">🗑️</div><span>Lixeira</span>
+      <div class="icon-img">
+        <img src="img/icons/lixeira.png" alt="Lixeira" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="icon-fallback">🗑️</span>
+      </div>
+      <span>Lixeira</span>
+    </div>
+    <div class="icon" data-win="musicas">
+      <div class="icon-img">
+        <img src="img/icons/mp3.png" alt="MP3 Player" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="icon-fallback">🎵</span>
+      </div>
+      <span>MP3 Player.exe</span>
     </div>
   </div>
 
   <!-- ---- Janela: Sobre mim (bloco de notas) ---- -->
   <div class="window" id="win-sobre" style="width:460px;height:320px;top:60px;left:120px;">
     <div class="titlebar" data-drag="win-sobre">
-      <div class="t-left"><span class="t-icon">📝</span>Sobre_mim.txt - Bloco de Notas</div>
+      <div class="t-left"><span class="t-icon">📝</span><span class="t-text">Sobre_mim.txt - Bloco de Notas</span></div>
       <div class="t-btns">
         <div class="tbtn" data-action="min" data-win="win-sobre">_</div>
         <div class="tbtn" data-action="max" data-win="win-sobre">□</div>
@@ -467,7 +607,7 @@ Julia Matilde Borges</div>
   <!-- ---- Janela: Projetos (galeria) ---- -->
   <div class="window" id="win-projetos" style="width:560px;height:400px;top:50px;left:220px;">
     <div class="titlebar" data-drag="win-projetos">
-      <div class="t-left"><span class="t-icon">🗂️</span>Projetos</div>
+      <div class="t-left"><span class="t-icon">🗂️</span><span class="t-text">Projetos</span></div>
       <div class="t-btns">
         <div class="tbtn" data-action="min" data-win="win-projetos">_</div>
         <div class="tbtn" data-action="max" data-win="win-projetos">□</div>
@@ -477,39 +617,145 @@ Julia Matilde Borges</div>
     <div class="win-content">
       <div class="gallery-wrap">
         <div class="gallery-grid">
-          <!-- EDITAR AQUI: troque cada .project-photo por <img src="projeto1.png" style="width:100%;height:100%;object-fit:cover;"> -->
-          <div class="project-card">
-            <div class="project-photo">📷 espaço para print<br>do projeto 1</div>
+          <button class="project-card project-card-button" type="button" data-win="projeto-1" aria-label="Abrir a galeria do projeto 1">
+            <div class="project-photo project-photo-image"><img src="img/bombeiro.png" alt="Prévia do projeto 1"></div>
             <div class="project-body">
               <h4>Nome do Projeto 1</h4>
               <p>Breve descrição do que o projeto faz e qual problema resolve.</p>
               <div class="tag-row"><span class="tag">Java</span><span class="tag">Spring</span><span class="tag">MySQL</span></div>
             </div>
-          </div>
-          <div class="project-card">
+          </button>
+          <button class="project-card project-card-button" type="button" data-win="projeto-2" aria-label="Abrir a galeria do projeto 2">
             <div class="project-photo">📷 espaço para print<br>do projeto 2</div>
             <div class="project-body">
               <h4>Nome do Projeto 2</h4>
               <p>Breve descrição do que o projeto faz e qual problema resolve.</p>
               <div class="tag-row"><span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">CSS</span></div>
             </div>
-          </div>
-          <div class="project-card">
+          </button>
+          <button class="project-card project-card-button" type="button" data-win="projeto-3" aria-label="Abrir a galeria do projeto 3">
             <div class="project-photo">📷 espaço para print<br>do projeto 3</div>
             <div class="project-body">
               <h4>Nome do Projeto 3</h4>
               <p>Breve descrição do que o projeto faz e qual problema resolve.</p>
               <div class="tag-row"><span class="tag">Java</span><span class="tag">MySQL</span></div>
             </div>
-          </div>
-          <div class="project-card">
+          </button>
+          <button class="project-card project-card-button" type="button" data-win="projeto-4" aria-label="Abrir a galeria do projeto 4">
             <div class="project-photo">📷 espaço para print<br>do projeto 4</div>
             <div class="project-body">
               <h4>Nome do Projeto 4</h4>
               <p>Breve descrição do que o projeto faz e qual problema resolve.</p>
               <div class="tag-row"><span class="tag">React</span><span class="tag">Spring</span></div>
             </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---- Janela: Galeria do Projeto 1 ---- -->
+  <div class="window" id="win-projeto-1" style="width:620px;height:430px;top:80px;left:260px;">
+    <div class="titlebar" data-drag="win-projeto-1">
+      <div class="t-left"><img class="t-icon titlebar-icon" src="img/icons/projetos.png" alt="🗂️"><span class="t-text">Projeto 1 — Galeria</span></div>
+      <div class="t-btns">
+        <div class="tbtn" data-action="min" data-win="win-projeto-1">_</div>
+        <div class="tbtn" data-action="max" data-win="win-projeto-1">□</div>
+        <div class="tbtn close" data-action="close" data-win="win-projeto-1">✕</div>
+      </div>
+    </div>
+    <div class="win-content">
+      <div class="project-gallery">
+        <div class="project-gallery-photos">
+          <div class="project-gallery-photo"><img src="img/bombeiro.png" alt="Imagem do projeto 1"></div>
+          <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 1</span></div>
+          <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 1</span></div>
+        </div>
+        <button class="carousel-control prev" type="button" aria-label="Foto anterior">‹</button>
+        <button class="carousel-control next" type="button" aria-label="Próxima foto">›</button>
+        <div class="carousel-dots" aria-label="Navegação da galeria"></div>
+        <div class="project-gallery-footer">
+          <div class="project-gallery-copy">
+            <h4>Nome do Projeto 1</h4>
+            <p>Galeria do projeto. Novas imagens podem ser adicionadas aqui.</p>
           </div>
+          <a class="view-project-button" href="https://github.com/JuliaMatildeBorges" target="_blank" rel="noopener">Ver projeto</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---- Janelas: Galerias dos projetos 2, 3 e 4 ---- -->
+  <div class="window" id="win-projeto-2" style="width:620px;height:430px;top:90px;left:280px;">
+    <div class="titlebar" data-drag="win-projeto-2">
+      <div class="t-left"><img class="t-icon titlebar-icon" src="img/icons/projetos.png" alt="🗂️"><span class="t-text">Projeto 2 — Galeria</span></div>
+      <div class="t-btns"><div class="tbtn" data-action="min" data-win="win-projeto-2">_</div><div class="tbtn" data-action="max" data-win="win-projeto-2">□</div><div class="tbtn close" data-action="close" data-win="win-projeto-2">✕</div></div>
+    </div>
+    <div class="win-content"><div class="project-gallery">
+      <div class="project-gallery-photos">
+        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 2</span></div>
+        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 2</span></div>
+        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 2</span></div>
+      </div>
+      <button class="carousel-control prev" type="button" aria-label="Foto anterior">‹</button><button class="carousel-control next" type="button" aria-label="Próxima foto">›</button><div class="carousel-dots" aria-label="Navegação da galeria"></div>
+      <div class="project-gallery-footer"><div class="project-gallery-copy"><h4>Nome do Projeto 2</h4><p>Galeria do projeto. Novas imagens podem ser adicionadas aqui.</p></div><a class="view-project-button" href="https://github.com/JuliaMatildeBorges" target="_blank" rel="noopener">Ver projeto</a></div>
+    </div></div>
+  </div>
+
+  <div class="window" id="win-projeto-3" style="width:620px;height:430px;top:100px;left:300px;">
+    <div class="titlebar" data-drag="win-projeto-3">
+      <div class="t-left"><img class="t-icon titlebar-icon" src="img/icons/projetos.png" alt="🗂️"><span class="t-text">Projeto 3 — Galeria</span></div>
+      <div class="t-btns"><div class="tbtn" data-action="min" data-win="win-projeto-3">_</div><div class="tbtn" data-action="max" data-win="win-projeto-3">□</div><div class="tbtn close" data-action="close" data-win="win-projeto-3">✕</div></div>
+    </div>
+    <div class="win-content"><div class="project-gallery">
+      <div class="project-gallery-photos">
+        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 3</span></div>
+        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 3</span></div>
+        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 3</span></div>
+      </div>
+      <button class="carousel-control prev" type="button" aria-label="Foto anterior">‹</button><button class="carousel-control next" type="button" aria-label="Próxima foto">›</button><div class="carousel-dots" aria-label="Navegação da galeria"></div>
+      <div class="project-gallery-footer"><div class="project-gallery-copy"><h4>Nome do Projeto 3</h4><p>Galeria do projeto. Novas imagens podem ser adicionadas aqui.</p></div><a class="view-project-button" href="https://github.com/JuliaMatildeBorges" target="_blank" rel="noopener">Ver projeto</a></div>
+    </div></div>
+  </div>
+
+  <div class="window" id="win-projeto-4" style="width:620px;height:430px;top:110px;left:320px;">
+    <div class="titlebar" data-drag="win-projeto-4">
+      <div class="t-left"><img class="t-icon titlebar-icon" src="img/icons/projetos.png" alt="🗂️"><span class="t-text">Projeto 4 — Galeria</span></div>
+      <div class="t-btns"><div class="tbtn" data-action="min" data-win="win-projeto-4">_</div><div class="tbtn" data-action="max" data-win="win-projeto-4">□</div><div class="tbtn close" data-action="close" data-win="win-projeto-4">✕</div></div>
+    </div>
+    <div class="win-content"><div class="project-gallery">
+      <div class="project-gallery-photos">
+        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 4</span></div>
+        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 4</span></div>
+        <div class="project-gallery-photo project-gallery-placeholder"><img src="img/icons/projetos.png" alt=""><span>Imagem do projeto 4</span></div>
+      </div>
+      <button class="carousel-control prev" type="button" aria-label="Foto anterior">‹</button><button class="carousel-control next" type="button" aria-label="Próxima foto">›</button><div class="carousel-dots" aria-label="Navegação da galeria"></div>
+      <div class="project-gallery-footer"><div class="project-gallery-copy"><h4>Nome do Projeto 4</h4><p>Galeria do projeto. Novas imagens podem ser adicionadas aqui.</p></div><a class="view-project-button" href="https://github.com/JuliaMatildeBorges" target="_blank" rel="noopener">Ver projeto</a></div>
+    </div></div>
+  </div>
+
+  <!-- ---- Janela: MP3 Player ---- -->
+  <div class="window" id="win-musicas" style="width:430px;height:310px;top:70px;left:620px;">
+    <div class="titlebar" data-drag="win-musicas">
+      <div class="t-left"><img class="t-icon titlebar-icon" src="img/icons/mp3.png" alt="🎵"><span class="t-text">MP3 Player</span></div>
+      <div class="t-btns">
+        <div class="tbtn" data-action="min" data-win="win-musicas">_</div>
+        <div class="tbtn close" data-action="close" data-win="win-musicas">✕</div>
+      </div>
+    </div>
+    <div class="win-content">
+      <div class="music-player">
+        <img class="music-cover" id="music-cover" src="img/songs/musica1.jpg" alt="Capa da música atual">
+        <div class="music-panel">
+          <div class="music-now"><h4 id="music-title">Mii Maker Editing Mii</h4><p id="music-artist">Asuka Hayazaki</p></div>
+          <input class="music-progress" id="music-progress" type="range" min="0" max="100" value="0" aria-label="Progresso da música">
+          <div class="music-controls">
+            <button class="music-control" id="music-prev" type="button" aria-label="Música anterior">⏮</button>
+            <button class="music-control music-play" id="music-play" type="button" aria-label="Reproduzir música">▶</button>
+            <button class="music-control" id="music-next" type="button" aria-label="Próxima música">⏭</button>
+          </div>
+          <div class="music-volume-row"><span>🔊</span><input class="music-volume" id="music-volume" type="range" min="0" max="100" value="35" aria-label="Volume"></div>
+          <div class="music-counter" id="music-counter">Faixa 1 de 4</div>
         </div>
       </div>
     </div>
@@ -518,7 +764,7 @@ Julia Matilde Borges</div>
   <!-- ---- Janela: Campo Minado ---- -->
   <div class="window" id="win-minesweeper" style="width:310px;height:400px;top:70px;left:340px;">
     <div class="titlebar" data-drag="win-minesweeper">
-      <div class="t-left"><span class="t-icon">💣</span>Campo Minado</div>
+      <div class="t-left"><span class="t-icon">💣</span><span class="t-text">Campo Minado</span></div>
       <div class="t-btns">
         <div class="tbtn" data-action="min" data-win="win-minesweeper">_</div>
         <div class="tbtn close" data-action="close" data-win="win-minesweeper">✕</div>
@@ -540,7 +786,7 @@ Julia Matilde Borges</div>
   <!-- ---- Janela: Paint ---- -->
   <div class="window" id="win-paint" style="width:460px;height:380px;top:60px;left:260px;">
     <div class="titlebar" data-drag="win-paint">
-      <div class="t-left"><span class="t-icon">🎨</span>Paint</div>
+      <div class="t-left"><span class="t-icon">🎨</span><span class="t-text">Paint</span></div>
       <div class="t-btns">
         <div class="tbtn" data-action="min" data-win="win-paint">_</div>
         <div class="tbtn" data-action="max" data-win="win-paint">□</div>
@@ -567,7 +813,7 @@ Julia Matilde Borges</div>
   <!-- ---- Janela: Lixeira ---- -->
   <div class="window" id="win-lixeira" style="width:300px;height:220px;top:120px;left:420px;">
     <div class="titlebar" data-drag="win-lixeira">
-      <div class="t-left"><span class="t-icon">🗑️</span>Lixeira</div>
+      <div class="t-left"><span class="t-icon">🗑️</span><span class="t-text">Lixeira</span></div>
       <div class="t-btns">
         <div class="tbtn" data-action="close" data-win="win-lixeira">✕</div>
       </div>
@@ -585,7 +831,7 @@ Julia Matilde Borges</div>
 <!-- ===================== START MENU ===================== -->
 <div id="start-menu">
   <div class="sm-header">
-    <div class="sm-avatar">JB</div>
+    <img class="sm-avatar" src="img/foto.jpg" alt="Foto de Julia Matilde Borges">
     <div>
       <h3>Julia Matilde Borges</h3>
       <p>Desenvolvedora de Sistemas / Full Stack</p>
@@ -593,21 +839,19 @@ Julia Matilde Borges</div>
   </div>
   <div class="sm-body">
     <div class="sm-col-left">
-      <div class="sm-item" data-win="sobre"><span class="em">📝</span>Sobre_mim.txt</div>
-      <div class="sm-item" data-win="projetos"><span class="em">🗂️</span>Projetos</div>
-      <div class="sm-item" data-win="minesweeper"><span class="em">💣</span>Campo Minado</div>
-      <div class="sm-item" data-win="paint"><span class="em">🎨</span>Paint</div>
-      <div class="sm-item" data-win="lixeira"><span class="em">🗑️</span>Lixeira</div>
+      <div class="sm-item" data-win="sobre"><img class="sm-menu-icon" src="img/icons/sobre.png" alt="">Sobre_mim.txt</div>
+      <div class="sm-item" data-win="projetos"><img class="sm-menu-icon" src="img/icons/projetos.png" alt="">Projetos</div>
+      <div class="sm-item" data-win="minesweeper"><img class="sm-menu-icon" src="img/icons/minesweeper.png" alt="">Campo Minado</div>
+      <div class="sm-item" data-win="paint"><img class="sm-menu-icon" src="img/icons/paint.png" alt="">Paint</div>
+      <div class="sm-item" data-win="musicas"><img class="sm-menu-icon" src="img/icons/mp3.png" alt="">MP3 Player</div>
+      <div class="sm-item" data-win="lixeira"><img class="sm-menu-icon" src="img/icons/lixeira.png" alt="">Lixeira</div>
       <input class="sm-search" placeholder="Pesquisar programas e arquivos" readonly>
     </div>
     <div class="sm-col-right">
       <h4>Contato</h4>
-      <a class="sm-contact" href="mailto:juliaborgesmatildeborges@gmail.com"><span class="em">✉️</span>juliaborgesmatildeborges@gmail.com</a>
-      <a class="sm-contact" href="tel:+5548991230838"><span class="em">📱</span>(48) 99123-0838</a>
-      <a class="sm-contact" href="https://wa.me/5548991230838" target="_blank" rel="noopener"><span class="em">💬</span>WhatsApp</a>
-      <!-- EDITAR AQUI: adicione LinkedIn/GitHub reais quando tiver -->
-      <a class="sm-contact" href="#"><span class="em">💼</span>LinkedIn (em breve)</a>
-      <a class="sm-contact" href="#"><span class="em">🐙</span>GitHub (em breve)</a>
+      <a class="sm-contact" href="mailto:juliaborgesmatildeborges@gmail.com"><img class="sm-contact-icon" src="img/icons/doc.png" alt="">juliaborgesmatildeborges@gmail.com</a>
+      <a class="sm-contact" href="#"><img class="sm-contact-icon" src="img/icons/doc.png" alt="">LinkedIn (em breve)</a>
+      <a class="sm-contact" href="https://github.com/JuliaMatildeBorges" target="_blank" rel="noopener"><img class="sm-contact-icon" src="img/icons/doc.png" alt="">GitHub</a>
     </div>
   </div>
   <div class="sm-footer">
@@ -620,14 +864,17 @@ Julia Matilde Borges</div>
 
 <!-- ===================== TASKBAR ===================== -->
 <div id="taskbar">
-  <div id="start-button"><span class="orb-dot"></span>Iniciar</div>
+  <button id="start-button" type="button" aria-label="Abrir menu Iniciar">
+    <img class="start-logo" src="img/logo.png" alt="">
+  </button>
   <div id="task-buttons"></div>
   <div id="system-tray">
-    <span class="tray-icon">🔊</span>
+    <button class="tray-icon tray-button" id="volume-toggle" type="button" aria-label="Ajustar volume" title="Volume">🔊</button>
     <span class="tray-icon">📶</span>
     <div id="clock"><div class="time">00:00</div><div class="date">—</div></div>
   </div>
 </div>
+<div class="volume-popover" id="volume-popover"><span>🔊</span><input id="tray-volume" type="range" min="0" max="100" value="35" aria-label="Ajustar volume"></div>
 
 <script>
 (function(){
@@ -635,9 +882,49 @@ Julia Matilde Borges</div>
 
   /* ---------- BOOT ---------- */
   var boot = document.getElementById('boot-screen');
-  function endBoot(){ boot.classList.add('hidden'); }
-  var bootTimer = setTimeout(endBoot, 2200);
-  boot.addEventListener('click', function(){ clearTimeout(bootTimer); endBoot(); });
+  var bootLogo = document.getElementById('boot-logo');
+  var bootIntro = document.getElementById('boot-intro');
+  var bootLogin = document.getElementById('boot-login');
+  var enterSite = document.getElementById('enter-site');
+  var introTimer;
+
+  bootLogo.addEventListener('animationend', function(){
+    bootLogo.classList.add('grown');
+  });
+
+  function goToLoginPhase(){
+    clearTimeout(introTimer);
+    bootIntro.style.display = 'none';
+    bootLogin.style.display = 'flex';
+    // força reflow pra garantir que a transição de opacidade rode
+    void bootLogin.offsetHeight;
+    bootLogin.classList.add('visible');
+  }
+
+  function playBootSequence(){
+    // reinicia a fase 1 (animação da logo)
+    bootLogin.classList.remove('visible');
+    bootLogin.style.display = 'none';
+    bootIntro.style.display = 'flex';
+    bootLogo.classList.remove('grown');
+    bootLogo.style.animation = 'none';
+    void bootLogo.offsetHeight; // força o navegador a recalcular antes de religar a animação
+    bootLogo.style.animation = '';
+    boot.classList.remove('hidden');
+    clearTimeout(introTimer);
+    introTimer = setTimeout(goToLoginPhase, 2400);
+  }
+  // clicar durante a animação já leva direto pra tela de login
+  bootIntro.addEventListener('click', goToLoginPhase);
+
+  function startDesktopSession(){
+    boot.classList.add('hidden');
+    startBackgroundMusic();
+    openWindow('sobre');
+    openWindow('musicas');
+  }
+  enterSite.addEventListener('click', startDesktopSession);
+  playBootSequence();
 
   /* ---------- CLOCK ---------- */
   function pad(n){ return n<10 ? '0'+n : n; }
@@ -693,8 +980,9 @@ Julia Matilde Borges</div>
   function openWindow(id){
     var el = winEl(id);
     if(!el) return;
-    var titleTxt = el.querySelector('.t-left').textContent.trim();
-    var icon = el.querySelector('.t-icon').textContent;
+    var titleTxt = el.querySelector('.t-text').textContent.trim();
+    var iconEl = el.querySelector('.t-icon');
+    var icon = iconEl.getAttribute('alt') || iconEl.textContent;
     el.classList.add('open');
     el.classList.remove('minimized');
     addTaskButton(id, titleTxt, icon);
@@ -737,6 +1025,124 @@ Julia Matilde Borges</div>
       closeStartMenu();
     });
   });
+
+  // Project cards open their respective internal galleries.
+  document.querySelectorAll('.project-card-button').forEach(function(card){
+    card.addEventListener('click', function(){
+      openWindow(card.getAttribute('data-win'));
+    });
+  });
+
+  // Horizontal carousels: buttons, touch/trackpad scrolling, and position dots.
+  document.querySelectorAll('.project-gallery').forEach(function(gallery){
+    var track = gallery.querySelector('.project-gallery-photos');
+    var slides = track.querySelectorAll('.project-gallery-photo');
+    var dots = gallery.querySelector('.carousel-dots');
+    var dotButtons = [];
+
+    slides.forEach(function(slide, index){
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Ir para a foto ' + (index + 1));
+      dot.addEventListener('click', function(){
+        track.scrollTo({left:index * track.clientWidth, behavior:'smooth'});
+      });
+      dots.appendChild(dot);
+      dotButtons.push(dot);
+    });
+
+    function updateCarouselPosition(){
+      var activeIndex = Math.round(track.scrollLeft / track.clientWidth);
+      dotButtons.forEach(function(dot, index){ dot.classList.toggle('active', index === activeIndex); });
+    }
+    track.addEventListener('scroll', updateCarouselPosition, {passive:true});
+    gallery.querySelector('.carousel-control.prev').addEventListener('click', function(){
+      track.scrollBy({left:-track.clientWidth, behavior:'smooth'});
+    });
+    gallery.querySelector('.carousel-control.next').addEventListener('click', function(){
+      track.scrollBy({left:track.clientWidth, behavior:'smooth'});
+    });
+  });
+
+  /* ---------- MUSIC PLAYER ---------- */
+  var tracks = [
+    {title:'Mii Maker Editing Mii', artist:'Asuka Hayazaki', file:'msc/musica1.mp3', cover:'img/songs/musica1.jpg'},
+    {title:'Wii Party Soundtrack', artist:'Toshiki Aida', file:'msc/musica2.mp3', cover:'img/songs/musica2.jpg'},
+    {title:'Map Night', artist:'Daisuke Matsuoka', file:'msc/musica3.mp3', cover:'img/songs/musica3.jpg'},
+    {title:'aquatic ambience', artist:'scizzie', file:'msc/musica4.mp3', cover:'img/songs/musica4.jpg'}
+  ];
+  var audio = new Audio();
+  var currentTrack = 0;
+  var musicCover = document.getElementById('music-cover');
+  var musicTitle = document.getElementById('music-title');
+  var musicArtist = document.getElementById('music-artist');
+  var musicProgress = document.getElementById('music-progress');
+  var musicPlay = document.getElementById('music-play');
+  var musicVolume = document.getElementById('music-volume');
+  var musicCounter = document.getElementById('music-counter');
+  var trayVolume = document.getElementById('tray-volume');
+  var volumeToggle = document.getElementById('volume-toggle');
+  var volumePopover = document.getElementById('volume-popover');
+  var autoplayBlocked = false;
+  audio.volume = Number(musicVolume.value) / 100;
+
+  function loadTrack(index, shouldPlay){
+    currentTrack = (index + tracks.length) % tracks.length;
+    var track = tracks[currentTrack];
+    audio.src = track.file;
+    musicCover.src = track.cover;
+    musicCover.alt = 'Capa: ' + track.title;
+    musicTitle.textContent = track.title;
+    musicArtist.textContent = track.artist;
+    musicProgress.value = 0;
+    musicCounter.textContent = 'Faixa ' + (currentTrack + 1) + ' de ' + tracks.length;
+    if(shouldPlay){ audio.play().catch(function(){}); }
+  }
+
+  function startBackgroundMusic(){
+    audio.play().then(function(){ autoplayBlocked = false; }).catch(function(){ autoplayBlocked = true; });
+  }
+
+  function updatePlayButton(){
+    var isPlaying = !audio.paused;
+    musicPlay.textContent = isPlaying ? '❚❚' : '▶';
+    musicPlay.setAttribute('aria-label', isPlaying ? 'Pausar música' : 'Reproduzir música');
+  }
+
+  musicPlay.addEventListener('click', function(){
+    if(audio.paused){ audio.play().catch(function(){}); } else { audio.pause(); }
+  });
+  document.getElementById('music-prev').addEventListener('click', function(){ loadTrack(currentTrack - 1, true); });
+  document.getElementById('music-next').addEventListener('click', function(){ loadTrack(currentTrack + 1, true); });
+  function setVolume(value){
+    audio.volume = Number(value) / 100;
+    musicVolume.value = value;
+    trayVolume.value = value;
+  }
+  musicVolume.addEventListener('input', function(){ setVolume(musicVolume.value); });
+  trayVolume.addEventListener('input', function(){ setVolume(trayVolume.value); });
+  musicProgress.addEventListener('input', function(){
+    if(isFinite(audio.duration)){ audio.currentTime = (Number(musicProgress.value) / 100) * audio.duration; }
+  });
+  audio.addEventListener('timeupdate', function(){
+    if(isFinite(audio.duration)){ musicProgress.value = (audio.currentTime / audio.duration) * 100; }
+  });
+  audio.addEventListener('play', updatePlayButton);
+  audio.addEventListener('pause', updatePlayButton);
+  audio.addEventListener('ended', function(){ loadTrack(currentTrack + 1, true); });
+  volumeToggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    volumePopover.classList.toggle('open');
+  });
+  document.addEventListener('click', function(e){
+    if(!volumePopover.contains(e.target) && e.target !== volumeToggle){ volumePopover.classList.remove('open'); }
+  });
+  loadTrack(0, false);
+  startBackgroundMusic();
+  document.addEventListener('pointerdown', function(){
+    if(autoplayBlocked && audio.paused){ startBackgroundMusic(); }
+  }, {once:true});
 
   // Title bar buttons
   document.querySelectorAll('.tbtn').forEach(function(btn){
@@ -808,11 +1214,11 @@ Julia Matilde Borges</div>
     closeStartMenu();
     var sd = document.getElementById('shutdown-screen');
     sd.classList.add('show');
+    audio.pause();
+    Object.keys(openWins).forEach(function(id){ closeWindow(id); });
     setTimeout(function(){
       sd.classList.remove('show');
-      boot.classList.remove('hidden');
-      clearTimeout(bootTimer);
-      bootTimer = setTimeout(endBoot, 1800);
+      playBootSequence();
     }, 1600);
   });
 
@@ -1074,7 +1480,7 @@ Julia Matilde Borges</div>
       'conectando a servidor remoto...',
       'transferindo arquivos [############] 100%',
       '',
-      'brincadeira. relaxa. 😏',
+      'brincadeirinha',
       'redirecionando...'
     ];
 
@@ -1096,9 +1502,6 @@ Julia Matilde Borges</div>
     }
     nextLine();
   }
-
-  /* Abre "Sobre mim" já no início, pra dar boas-vindas */
-  setTimeout(function(){ openWindow('sobre'); }, 2400);
 
 })();
 </script>
