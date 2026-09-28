@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Julia Matilde Borges — Portfólio</title>
+<link rel="icon" type="image/png" href="img/logo.png">
+<link rel="shortcut icon" href="img/logo.png">
+<link rel="apple-touch-icon" href="img/logo.png">
 <style>
 
 :root{
@@ -496,6 +499,9 @@ img{-webkit-user-drag:none;user-drag:none;}
 .music-control:active{border-color:#404040 #fff #fff #404040;}
 .music-play{width:48px;height:40px;font-size:18px;}
 .music-volume-row{display:flex;align-items:center;gap:7px;font-size:11px;color:#222;}
+.music-volume-icon{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;flex:0 0 auto;}
+.music-volume-icon img{width:22px;height:22px;object-fit:contain;display:block;}
+.music-volume-fallback{display:none;font-size:16px;line-height:1;}
 .music-volume{flex:1;accent-color:#3d75ad;cursor:pointer;}
 .music-counter{text-align:center;font-size:10.5px;color:#333;}
 
@@ -751,7 +757,7 @@ Julia Matilde Borges</div>
             <button class="music-control music-play" id="music-play" type="button" aria-label="Reproduzir música">▶</button>
             <button class="music-control" id="music-next" type="button" aria-label="Próxima música">⏭</button>
           </div>
-          <div class="music-volume-row"><span>🔊</span><input class="music-volume" id="music-volume" type="range" min="0" max="100" value="35" aria-label="Volume"></div>
+          <div class="music-volume-row"><span class="music-volume-icon"><img src="img/icons/volume.png" alt="Volume" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"><span class="music-volume-fallback">🔊</span></span><input class="music-volume" id="music-volume" type="range" min="0" max="100" value="35" aria-label="Volume"></div>
           <div class="music-counter" id="music-counter">Faixa 1 de 4</div>
         </div>
       </div>
